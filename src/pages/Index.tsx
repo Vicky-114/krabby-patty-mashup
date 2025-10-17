@@ -38,7 +38,12 @@ const Index = () => {
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase function error:', error);
+        throw error;
+      }
+
+      console.log('Received question data:', data);
 
       setCurrentQuestion({
         id: `q${questionNumber}`,
@@ -47,10 +52,49 @@ const Index = () => {
       });
     } catch (error) {
       console.error('Error generating question:', error);
+      
+      // Use a fallback question if AI fails
+      const fallbackQuestions = [
+        {
+          question: "What's your ideal way to spend a Saturday?",
+          options: [
+            {label:"Working on a fun project", traits:{industrious:2, inventive:1}},
+            {label:"Relaxing at home", traits:{relaxed:2, calm:1}},
+            {label:"Hanging out with friends", traits:{social:2, loyal:1}},
+            {label:"Pursuing a hobby", traits:{artistic:2, playful:1}}
+          ]
+        },
+        {
+          question: "How do you handle stress?",
+          options: [
+            {label:"Stay calm and think it through", traits:{calm:2, analytical:1}},
+            {label:"Keep a positive attitude", traits:{optimistic:2, brave:1}},
+            {label:"Talk to friends", traits:{social:2, loyal:1}},
+            {label:"Worry about everything", traits:{anxious:2, cautious:1}}
+          ]
+        },
+        {
+          question: "What's most important to you?",
+          options: [
+            {label:"Having fun and laughing", traits:{playful:2, optimistic:1}},
+            {label:"Being successful", traits:{ambitious:2, industrious:1}},
+            {label:"Helping others", traits:{loyal:2, responsible:1}},
+            {label:"Being creative", traits:{artistic:2, inventive:1}}
+          ]
+        }
+      ];
+      
+      const fallback = fallbackQuestions[questionNumber - 1] || fallbackQuestions[0];
+      
+      setCurrentQuestion({
+        id: `q${questionNumber}`,
+        text: fallback.question,
+        options: fallback.options,
+      });
+      
       toast({
-        title: "Error",
-        description: "Failed to generate question. Please try again.",
-        variant: "destructive",
+        title: "使用备用问题",
+        description: "AI生成失败，使用预设问题继续",
       });
     } finally {
       setIsLoading(false);

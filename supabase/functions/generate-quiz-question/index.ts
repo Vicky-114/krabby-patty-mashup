@@ -72,13 +72,28 @@ Create a question that builds on these patterns while exploring slightly new ter
           { role: 'user', content: userPrompt }
         ],
         temperature: 0.8,
+        response_format: { type: "json_object" }
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
       console.error('AI Gateway error:', response.status, errorText);
-      throw new Error(`AI Gateway error: ${response.status}`);
+      
+      // Return a fallback question if AI fails
+      return new Response(JSON.stringify({
+        question: type === 'initial' 
+          ? "What's your ideal way to spend a Saturday?"
+          : "How do you handle unexpected challenges?",
+        options: [
+          {label:"With careful planning", traits:{cautious:2, analytical:1}},
+          {label:"Jump right in!", traits:{brave:2, playful:1}},
+          {label:"Ask friends for help", traits:{social:2, loyal:1}},
+          {label:"Find a creative solution", traits:{inventive:2, artistic:1}}
+        ]
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
     const data = await response.json();
@@ -87,7 +102,24 @@ Create a question that builds on these patterns while exploring slightly new ter
     console.log('AI response:', content);
     
     // Parse the JSON from the response
-    const questionData = JSON.parse(content);
+    let questionData;
+    try {
+      questionData = JSON.parse(content);
+    } catch (parseError) {
+      console.error('Failed to parse AI response:', parseError);
+      // Return fallback question
+      return new Response(JSON.stringify({
+        question: "What describes you best?",
+        options: [
+          {label:"Optimistic and energetic", traits:{optimistic:2, playful:1}},
+          {label:"Calm and relaxed", traits:{relaxed:2, calm:1}},
+          {label:"Ambitious and driven", traits:{ambitious:2, industrious:1}},
+          {label:"Thoughtful and artistic", traits:{artistic:2, analytical:1}}
+        ]
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
 
     return new Response(JSON.stringify(questionData), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
