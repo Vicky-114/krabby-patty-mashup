@@ -7,90 +7,85 @@ All colors MUST be HSL.
 */
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+:root {
+    /* Ocean-inspired Bikini Bottom theme */
+    --background: 200 100% 37%; /* Deep ocean blue #0077be */
+    --foreground: 0 0% 100%; /* White text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 200 95% 25%; /* Darker ocean blue for cards */
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 200 100% 32%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 48 100% 50%; /* SpongeBob yellow #ffdd00 */
+    --primary-foreground: 0 0% 20%; /* Dark text on yellow */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 200 80% 45%; /* Lighter ocean blue */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 200 50% 30%;
+    --muted-foreground: 200 20% 80%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 48 100% 50%; /* Yellow accent */
+    --accent-foreground: 0 0% 20%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 200 50% 50%;
+    --input: 200 60% 30%;
+    --ring: 48 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Custom ocean effects */
+    --bubble-glow: 190 100% 70%;
+    --jellyfish-pink: 330 70% 75%;
+    --coral-orange: 15 90% 65%;
+    
+    /* Gradients */
+    --gradient-ocean: linear-gradient(180deg, hsl(200 100% 37%), hsl(200 90% 25%));
+    --gradient-bubble: radial-gradient(circle, hsla(190 100% 70% / 0.3), transparent);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 30px hsla(48 100% 50% / 0.4);
+    --shadow-deep: 0 10px 40px hsla(0 0% 0% / 0.5);
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+.dark {
+    /* Darker ocean depths */
+    --background: 200 100% 15%;
+    --foreground: 200 50% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 200 90% 12%;
+    --card-foreground: 200 40% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 200 90% 12%;
+    --popover-foreground: 200 40% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 48 100% 50%;
+    --primary-foreground: 0 0% 10%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 200 60% 25%;
+    --secondary-foreground: 200 40% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 200 60% 18%;
+    --muted-foreground: 200 30% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 48 100% 50%;
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 200 40% 25%;
+    --input: 200 50% 20%;
+    --ring: 48 100% 50%;
   }
 }
 
@@ -101,5 +96,97 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-ocean);
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  /* Floating jellyfish animation */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) translateX(0) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px) rotate(5deg);
+    }
+    50% {
+      transform: translateY(-40px) translateX(-10px) rotate(-5deg);
+    }
+    75% {
+      transform: translateY(-20px) translateX(10px) rotate(3deg);
+    }
+  }
+
+  @keyframes float-slow {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+    }
+    50% {
+      transform: translateY(-30px) translateX(15px);
+    }
+  }
+
+  @keyframes bubble-rise {
+    0% {
+      transform: translateY(0) scale(0.8);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100vh) scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsla(48 100% 50% / 0.4);
+    }
+    50% {
+      box-shadow: 0 0 40px hsla(48 100% 50% / 0.8);
+    }
+  }
+
+  .float-animation {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .float-slow {
+    animation: float-slow 12s ease-in-out infinite;
+  }
+
+  .bubble-rise {
+    animation: bubble-rise 6s ease-in infinite;
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .ocean-gradient {
+    background: var(--gradient-ocean);
+  }
+
+  .bubble-effect {
+    background: var(--gradient-bubble);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-deep {
+    box-shadow: var(--shadow-deep);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-bounce {
+    transition: var(--transition-bounce);
   }
 }
