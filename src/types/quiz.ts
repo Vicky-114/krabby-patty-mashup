@@ -34,6 +34,12 @@ export interface CharacterMatch {
   confidence: number;
 }
 
+export interface ComponentBreakdown {
+  key: string;
+  name: string;
+  percentage: number;
+}
+
 export interface HybridCharacter {
   id: string;
   name: string;
@@ -42,4 +48,5 @@ export interface HybridCharacter {
   description: string;
   createdAt: number;
   position?: { x: number; y: number };
+  componentBreakdown?: ComponentBreakdown[]; // Detailed percentage breakdown
 }

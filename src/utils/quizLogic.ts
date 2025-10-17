@@ -33,32 +33,42 @@ export function computeMatch(traitScores: TraitScores): { topMatch: CharacterMat
 
 export function createHybridCharacter(
   traitScores: TraitScores,
-  answers: Answer[]
+  answers: Answer[],
+  userName: string
 ): HybridCharacter {
   const matchResult = computeMatch(traitScores);
   
-  // Get top 3 characters to combine
-  const topCharacters = matchResult.sorted.slice(0, 3);
+  // Get all characters with significant contribution (>10% confidence)
+  const significantCharacters = matchResult.sorted.filter(c => c.confidence > 0.1);
   
-  // Generate hybrid name
-  const nameParts = topCharacters.map(c => {
-    const names = c.name.split(' ');
-    return names[Math.floor(Math.random() * names.length)];
-  });
-  const hybridName = nameParts.join('');
+  // Calculate component percentages
+  const components = significantCharacters.map(c => ({
+    key: c.key,
+    name: c.name,
+    percentage: Math.round(c.confidence * 100),
+  }));
   
-  // Create personality description
-  const traits = Object.entries(traitScores)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 5)
-    .map(([trait]) => trait);
+  // Generate hybrid name using user's name
+  const hybridName = `${userName}`;
   
-  const description = `A unique hybrid combining the ${traits.slice(0, 3).join(', ')} nature of ${topCharacters.map(c => c.name).join(', ')}. This rare Bikini Bottom creature embodies ${traits[3]} and ${traits[4]} tendencies.`;
+  // Create detailed personality description with percentages
+  const componentDescriptions = components.map(c => {
+    // Find the dominant traits from this character
+    const charWeights = CHARACTERS[c.key].weights;
+    const topTraits = Object.entries(charWeights)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 2)
+      .map(([trait]) => trait);
+    
+    return `${c.name}的${topTraits[0]}特性(${c.percentage}%)`;
+  }).join('和');
+  
+  const description = `这是一个由${componentDescriptions}组成的独特混合角色。结合了${components.map(c => c.name).join('、')}的特点，形成了专属于${userName}的比奇堡人格。`;
   
   return {
     id: Date.now().toString(),
     name: hybridName,
-    components: topCharacters.map(c => c.key),
+    components: components.map(c => c.key),
     traits: traitScores,
     description,
     createdAt: Date.now(),
@@ -66,6 +76,7 @@ export function createHybridCharacter(
       x: Math.random() * 80 + 10,
       y: Math.random() * 60 + 20,
     },
+    componentBreakdown: components, // Add detailed breakdown
   };
 }
 

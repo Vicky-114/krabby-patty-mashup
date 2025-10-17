@@ -23,21 +23,30 @@ serve(async (req) => {
     let userPrompt = '';
 
     if (type === 'initial') {
-      systemPrompt = `You are a SpongeBob personality quiz expert. Generate ONE creative personality question that helps identify which SpongeBob character someone is most like. 
-
-The question should be engaging, fun, and reveal personality traits like: playful, optimistic, loyal, industrious, relaxed, artistic, serious, cynical, brave, logical, cautious, ambitious, cunning, social, etc.
-
-Return ONLY a JSON object with this exact structure:
-{
-  "question": "Your question here?",
-  "options": [
-    {"label": "Option 1", "traits": {"trait1": 2, "trait2": 1}},
-    {"label": "Option 2", "traits": {"trait3": 2, "trait4": 1}},
-    {"label": "Option 3", "traits": {"trait5": 2, "trait6": 1}},
-    {"label": "Option 4", "traits": {"trait7": 2, "trait8": 1}}
-  ]
-}`;
-      userPrompt = 'Generate a creative personality question for a SpongeBob quiz.';
+      // First question is always fixed - about time of day preference
+      return new Response(JSON.stringify({
+        question: "你喜欢一天当中的哪个时间段？",
+        options: [
+          {
+            label: "早上 - 充满活力，准备迎接新的一天",
+            traits: { optimistic: 2, industrious: 2, playful: 1 }
+          },
+          {
+            label: "中午 - 忙碌工作，专注于手头的事情",
+            traits: { industrious: 2, disciplined: 2, ambitious: 1 }
+          },
+          {
+            label: "晚上 - 放松休息，享受宁静时光",
+            traits: { relaxed: 2, calm: 2, artistic: 1 }
+          },
+          {
+            label: "夜间 - 思考人生，在黑暗中活跃",
+            traits: { analytical: 2, cunning: 1, introvert: 2 }
+          }
+        ]
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     } else if (type === 'adaptive' && previousAnswers) {
       const traitsFromPreviousAnswers = previousAnswers.map((a: any) => a.traits).flat();
       systemPrompt = `You are generating adaptive follow-up questions for a SpongeBob personality quiz. Based on the user's previous answers, create a question that has ~80% overlap with traits they've already shown, plus 20% new traits to explore.

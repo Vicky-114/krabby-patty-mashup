@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { QuizQuestion as QuizQuestionType, Answer, TraitScores, HybridCharacter } from '@/types/quiz';
 import { computeMatch, createHybridCharacter, saveHybrid, loadHybrids } from '@/utils/quizLogic';
+import WelcomeScreen from '@/components/WelcomeScreen';
 import QuizQuestion from '@/components/QuizQuestion';
 import QuizResult from '@/components/QuizResult';
 import FloatingHybrid from '@/components/FloatingHybrid';
@@ -9,6 +10,8 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 
 const Index = () => {
+  const [userName, setUserName] = useState<string>('');
+  const [quizStarted, setQuizStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestionType | null>(null);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -23,10 +26,14 @@ const Index = () => {
     // Load saved hybrids on mount
     const saved = loadHybrids();
     setFloatingHybrids(saved);
-    
-    // Start quiz with AI-generated question
-    generateQuestion('initial');
   }, []);
+
+  const handleStart = (name: string) => {
+    setUserName(name);
+    setQuizStarted(true);
+    // Start quiz with first question
+    generateQuestion('initial');
+  };
 
   const generateQuestion = async (type: 'initial' | 'adaptive') => {
     setIsLoading(true);
@@ -125,9 +132,12 @@ const Index = () => {
     // Check if we should end the quiz
     const matchResult = computeMatch(newTraitScores);
     
-    if (questionNumber >= 3 || matchResult.topMatch.confidence >= 0.8) {
-      // Create hybrid character
-      const hybrid = createHybridCharacter(newTraitScores, newAnswers);
+    console.log('Match confidence:', matchResult.topMatch.confidence, 'Question:', questionNumber);
+    
+    // Continue until 90% confidence is reached
+    if (matchResult.topMatch.confidence >= 0.9) {
+      // Create hybrid character with user's name
+      const hybrid = createHybridCharacter(newTraitScores, newAnswers, userName);
       setCurrentHybrid(hybrid);
       
       // Save to localStorage
@@ -137,6 +147,11 @@ const Index = () => {
       setFloatingHybrids(prev => [...prev, hybrid]);
       
       setQuizComplete(true);
+      
+      toast({
+        title: "测试完成！",
+        description: `经过${questionNumber}个问题，我们找到了最匹配你的角色组合！`,
+      });
     } else {
       // Generate next question (adaptive)
       setQuestionNumber(prev => prev + 1);
@@ -151,7 +166,8 @@ const Index = () => {
     setTraitScores({});
     setQuizComplete(false);
     setCurrentHybrid(null);
-    generateQuestion('initial');
+    setQuizStarted(false);
+    setUserName('');
   };
 
   return (
@@ -162,14 +178,18 @@ const Index = () => {
       ))}
 
       {/* Quiz content */}
-      {isLoading && (
+      {!quizStarted && (
+        <WelcomeScreen onStart={handleStart} />
+      )}
+
+      {quizStarted && isLoading && (
         <div className="flex flex-col items-center justify-center min-h-screen">
           <Loader2 className="w-16 h-16 animate-spin text-primary mb-4" />
-          <p className="text-xl text-foreground">Generating your question...</p>
+          <p className="text-xl text-foreground">正在生成问题...</p>
         </div>
       )}
 
-      {!isLoading && !quizComplete && currentQuestion && (
+      {quizStarted && !isLoading && !quizComplete && currentQuestion && (
         <QuizQuestion
           question={currentQuestion}
           onAnswer={handleAnswer}
