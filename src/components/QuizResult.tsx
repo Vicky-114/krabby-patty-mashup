@@ -16,14 +16,14 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
   
   const handleShare = () => {
     const componentText = hybrid.componentBreakdown 
-      ? hybrid.componentBreakdown.map(c => `${c.name}(${c.percentage}%)`).join('、')
-      : hybrid.components.map(k => CHARACTERS[k]?.name).join('、');
+      ? hybrid.componentBreakdown.map(c => `${c.name} (${c.percentage}%)`).join(', ')
+      : hybrid.components.map(k => CHARACTERS[k]?.name).join(', ');
     
-    const text = `我是 ${hybrid.name}！\n这是一个由${componentText}组成的独特混合角色。\n${hybrid.description}`;
+    const text = `I'm ${hybrid.name}!\nThis is a unique hybrid composed of ${componentText}.\n${hybrid.description}`;
     
     if (navigator.share) {
       navigator.share({
-        title: '我的比奇堡混合角色',
+        title: 'My Bikini Bottom Hybrid Character',
         text,
       }).catch(() => {
         copyToClipboard(text);
@@ -36,8 +36,8 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     toast({
-      title: "已复制到剪贴板！",
-      description: "快去分享你的混合角色吧！",
+      title: "Copied to clipboard!",
+      description: "Share your hybrid character with friends!",
     });
   };
   
@@ -57,7 +57,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
       <Card className="relative w-full max-w-3xl p-8 md:p-12 bg-card/95 backdrop-blur-md border-primary border-4 shadow-deep">
         <div className="text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-primary mb-4 pulse-glow">
-            你是混合角色！
+            You're a Hybrid Character!
           </h1>
           
           <h2 className="text-4xl md:text-6xl font-black text-foreground mb-6">
@@ -82,13 +82,13 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
           </div>
           
           <div className="bg-muted/50 rounded-lg p-6 mb-6">
-            <h3 className="text-xl font-bold text-primary mb-3">你的混合人格</h3>
+            <h3 className="text-xl font-bold text-primary mb-3">Your Hybrid Personality</h3>
             <p className="text-foreground leading-relaxed mb-4">{hybrid.description}</p>
             
             {/* Detailed component breakdown */}
             {hybrid.componentBreakdown && hybrid.componentBreakdown.length > 0 && (
               <div className="mt-4 space-y-3">
-                <h4 className="text-lg font-semibold text-primary">角色组成详解：</h4>
+                <h4 className="text-lg font-semibold text-primary">Character Composition Breakdown:</h4>
                 {hybrid.componentBreakdown.map(component => {
                   const character = CHARACTERS[component.key];
                   const topTraits = Object.entries(character.weights)
@@ -115,7 +115,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
                           />
                         </div>
                         <p className="text-xs text-muted-foreground mt-1">
-                          主要特质: {topTraits.join(', ')}
+                          Key traits: {topTraits.join(', ')}
                         </p>
                       </div>
                     </div>
@@ -131,7 +131,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
               size="lg"
               className="font-bold shadow-glow"
             >
-              重新测试
+              Take Quiz Again
             </Button>
             
             <Button
@@ -141,7 +141,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
               className="font-bold"
             >
               <Share2 className="mr-2 h-5 w-5" />
-              分享你的角色
+              Share Your Character
             </Button>
           </div>
         </div>

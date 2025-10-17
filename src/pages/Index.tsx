@@ -100,8 +100,8 @@ const Index = () => {
       });
       
       toast({
-        title: "使用备用问题",
-        description: "AI生成失败，使用预设问题继续",
+        title: "Using Fallback Question",
+        description: "AI generation failed, using preset question to continue",
       });
     } finally {
       setIsLoading(false);
@@ -149,8 +149,8 @@ const Index = () => {
       setQuizComplete(true);
       
       toast({
-        title: "测试完成！",
-        description: `经过${questionNumber}个问题，我们找到了最匹配你的角色组合！`,
+        title: "Quiz Complete!",
+        description: `After ${questionNumber} questions, we found your perfect character match!`,
       });
     } else {
       // Generate next question (adaptive)
@@ -185,7 +185,7 @@ const Index = () => {
       {quizStarted && isLoading && (
         <div className="flex flex-col items-center justify-center min-h-screen">
           <Loader2 className="w-16 h-16 animate-spin text-primary mb-4" />
-          <p className="text-xl text-foreground">正在生成问题...</p>
+          <p className="text-xl text-foreground">Generating your question...</p>
         </div>
       )}
 

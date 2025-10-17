@@ -60,10 +60,10 @@ export function createHybridCharacter(
       .slice(0, 2)
       .map(([trait]) => trait);
     
-    return `${c.name}的${topTraits[0]}特性(${c.percentage}%)`;
-  }).join('和');
+    return `${c.name}'s ${topTraits[0]} nature (${c.percentage}%)`;
+  }).join(' and ');
   
-  const description = `这是一个由${componentDescriptions}组成的独特混合角色。结合了${components.map(c => c.name).join('、')}的特点，形成了专属于${userName}的比奇堡人格。`;
+  const description = `This is a unique hybrid composed of ${componentDescriptions}. Combining traits from ${components.map(c => c.name).join(', ')}, forming a Bikini Bottom personality exclusive to ${userName}.`;
   
   return {
     id: Date.now().toString(),

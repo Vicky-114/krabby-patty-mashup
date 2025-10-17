@@ -25,22 +25,22 @@ serve(async (req) => {
     if (type === 'initial') {
       // First question is always fixed - about time of day preference
       return new Response(JSON.stringify({
-        question: "你喜欢一天当中的哪个时间段？",
+        question: "What time of day do you prefer most?",
         options: [
           {
-            label: "早上 - 充满活力，准备迎接新的一天",
+            label: "Morning - Full of energy, ready to start the day",
             traits: { optimistic: 2, industrious: 2, playful: 1 }
           },
           {
-            label: "中午 - 忙碌工作，专注于手头的事情",
+            label: "Afternoon - Busy working, focused on tasks at hand",
             traits: { industrious: 2, disciplined: 2, ambitious: 1 }
           },
           {
-            label: "晚上 - 放松休息，享受宁静时光",
+            label: "Evening - Relaxing, enjoying peaceful quiet time",
             traits: { relaxed: 2, calm: 2, artistic: 1 }
           },
           {
-            label: "夜间 - 思考人生，在黑暗中活跃",
+            label: "Night - Deep thinking, active in the darkness",
             traits: { analytical: 2, cunning: 1, introvert: 2 }
           }
         ]
