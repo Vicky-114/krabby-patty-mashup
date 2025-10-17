@@ -20,16 +20,16 @@ const QuizQuestion = ({ question, onAnswer, questionNumber }: QuizQuestionProps)
           {question.text}
         </h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-4">
           {question.options.map((option, index) => (
             <Button
               key={index}
               onClick={() => onAnswer(option.label, option.traits)}
               variant="default"
               size="lg"
-              className="h-auto py-6 text-lg md:text-xl font-semibold transition-bounce hover:scale-105 shadow-glow"
+              className="w-full h-auto min-h-[80px] py-6 px-6 text-left text-base md:text-lg font-semibold transition-bounce hover:scale-[1.02] shadow-glow whitespace-normal leading-relaxed"
             >
-              {option.label}
+              <span className="block">{option.label}</span>
             </Button>
           ))}
         </div>
