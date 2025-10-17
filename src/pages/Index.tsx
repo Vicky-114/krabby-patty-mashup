@@ -131,7 +131,7 @@ const Index = () => {
 
     // Check if we should end the quiz
     const matchResult = computeMatch(newTraitScores);
-    const minQuestions = 5; // Minimum questions required
+    const minQuestions = 7; // Minimum questions required for diverse results
     
     console.log(`Question ${questionNumber} answered. Current confidence: ${(matchResult.topMatch.confidence * 100).toFixed(1)}%`);
     console.log('Top match:', matchResult.topMatch.name);

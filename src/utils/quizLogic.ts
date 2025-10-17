@@ -17,7 +17,10 @@ export function computeMatch(traitScores: TraitScores): { topMatch: CharacterMat
 
   const scoreValues = Object.values(scores);
   const maxScore = Math.max(...scoreValues);
-  const expScores = scoreValues.map(s => Math.exp(s - maxScore));
+  
+  // Use lower temperature for softmax to create more distributed probabilities
+  const temperature = 1.5; // Higher temperature = more even distribution
+  const expScores = scoreValues.map(s => Math.exp((s - maxScore) / temperature));
   const sumExpScores = expScores.reduce((a, b) => a + b, 0);
   const probabilities = expScores.map(s => s / sumExpScores);
 
@@ -38,8 +41,8 @@ export function createHybridCharacter(
 ): HybridCharacter {
   const matchResult = computeMatch(traitScores);
   
-  // Get all characters with significant contribution (>10% confidence)
-  const significantCharacters = matchResult.sorted.filter(c => c.confidence > 0.1);
+  // Get all characters with significant contribution (>5% confidence for more diversity)
+  const significantCharacters = matchResult.sorted.filter(c => c.confidence > 0.05);
   
   // Calculate component percentages
   const components = significantCharacters.map(c => ({
