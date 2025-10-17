@@ -51,19 +51,30 @@ export function createHybridCharacter(
   // Generate hybrid name using user's name
   const hybridName = `${userName}`;
   
-  // Create detailed personality description with percentages
+  // Create detailed personality description showing which traits from each character
   const componentDescriptions = components.map(c => {
-    // Find the dominant traits from this character
+    // Find which traits the user scored highest in that align with this character
     const charWeights = CHARACTERS[c.key].weights;
-    const topTraits = Object.entries(charWeights)
-      .sort(([, a], [, b]) => b - a)
+    
+    // Get the user's top traits that match this character's strengths
+    const matchingTraits = Object.entries(charWeights)
+      .filter(([trait]) => traitScores[trait] > 0) // Only traits the user has
+      .sort(([traitA, weightA], [traitB, weightB]) => {
+        // Sort by combination of user's trait score and character's weight for that trait
+        const scoreA = traitScores[traitA] * weightA;
+        const scoreB = traitScores[traitB] * weightB;
+        return scoreB - scoreA;
+      })
       .slice(0, 2)
       .map(([trait]) => trait);
     
-    return `${c.name}'s ${topTraits[0]} nature (${c.percentage}%)`;
-  }).join(' and ');
+    if (matchingTraits.length > 0) {
+      return `${c.name}'s ${matchingTraits.join(' and ')} (${c.percentage}%)`;
+    }
+    return `${c.name} (${c.percentage}%)`;
+  }).join(', ');
   
-  const description = `This is a unique hybrid composed of ${componentDescriptions}. Combining traits from ${components.map(c => c.name).join(', ')}, forming a Bikini Bottom personality exclusive to ${userName}.`;
+  const description = `You are a unique hybrid character! Your personality is composed of: ${componentDescriptions}. This creates a one-of-a-kind Bikini Bottom personality that is exclusively ${userName}.`;
   
   return {
     id: Date.now().toString(),

@@ -132,10 +132,13 @@ const Index = () => {
     // Check if we should end the quiz
     const matchResult = computeMatch(newTraitScores);
     
-    console.log('Match confidence:', matchResult.topMatch.confidence, 'Question:', questionNumber);
+    console.log(`Question ${questionNumber} answered. Current confidence: ${(matchResult.topMatch.confidence * 100).toFixed(1)}%`);
+    console.log('Top match:', matchResult.topMatch.name);
     
     // Continue until 90% confidence is reached
     if (matchResult.topMatch.confidence >= 0.9) {
+      console.log(`✓ Quiz complete! Reached ${(matchResult.topMatch.confidence * 100).toFixed(1)}% confidence after ${questionNumber} questions`);
+      
       // Create hybrid character with user's name
       const hybrid = createHybridCharacter(newTraitScores, newAnswers, userName);
       setCurrentHybrid(hybrid);
@@ -150,10 +153,11 @@ const Index = () => {
       
       toast({
         title: "Quiz Complete!",
-        description: `After ${questionNumber} questions, we found your perfect character match!`,
+        description: `After ${questionNumber} questions, we found your perfect character match at ${(matchResult.topMatch.confidence * 100).toFixed(0)}% confidence!`,
       });
     } else {
       // Generate next question (adaptive)
+      console.log(`→ Generating question ${questionNumber + 1} (need ${(0.9 - matchResult.topMatch.confidence) * 100}% more confidence)`);
       setQuestionNumber(prev => prev + 1);
       generateQuestion('adaptive');
     }
