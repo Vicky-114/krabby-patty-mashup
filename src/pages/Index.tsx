@@ -131,12 +131,14 @@ const Index = () => {
 
     // Check if we should end the quiz
     const matchResult = computeMatch(newTraitScores);
+    const minQuestions = 5; // Minimum questions required
     
     console.log(`Question ${questionNumber} answered. Current confidence: ${(matchResult.topMatch.confidence * 100).toFixed(1)}%`);
     console.log('Top match:', matchResult.topMatch.name);
+    console.log(`Minimum questions required: ${minQuestions}, current: ${questionNumber}`);
     
-    // Continue until 90% confidence is reached
-    if (matchResult.topMatch.confidence >= 0.9) {
+    // Continue until 90% confidence is reached AND at least minimum questions answered
+    if (matchResult.topMatch.confidence >= 0.9 && questionNumber >= minQuestions) {
       console.log(`✓ Quiz complete! Reached ${(matchResult.topMatch.confidence * 100).toFixed(1)}% confidence after ${questionNumber} questions`);
       
       // Create hybrid character with user's name
@@ -157,7 +159,10 @@ const Index = () => {
       });
     } else {
       // Generate next question (adaptive)
-      console.log(`→ Generating question ${questionNumber + 1} (need ${(0.9 - matchResult.topMatch.confidence) * 100}% more confidence)`);
+      const reason = questionNumber < minQuestions 
+        ? `need ${minQuestions - questionNumber} more questions (minimum ${minQuestions})`
+        : `need ${((0.9 - matchResult.topMatch.confidence) * 100).toFixed(1)}% more confidence`;
+      console.log(`→ Generating question ${questionNumber + 1} (${reason})`);
       setQuestionNumber(prev => prev + 1);
       generateQuestion('adaptive');
     }
