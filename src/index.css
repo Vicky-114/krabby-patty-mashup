@@ -96,7 +96,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    background: var(--gradient-ocean);
+    background: url('/src/assets/bg_bikini_bottom.jpg') center/cover no-repeat fixed;
     overflow: hidden;
   }
 }
