@@ -170,6 +170,37 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
               ))}
             </div>
           )}
+          {/* Actions moved up for visibility */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+            {!generatedImage && (
+              <Button
+                onClick={generateHybridImage}
+                size="lg"
+                disabled={isGenerating}
+                className="font-bold shadow-glow"
+              >
+                <Wand2 className="mr-2 h-5 w-5" />
+                {isGenerating ? '正在生成…' : '生成AI融合图像'}
+              </Button>
+            )}
+            <Button
+              onClick={onRestart}
+              size="lg"
+              variant={generatedImage ? "default" : "secondary"}
+              className="font-bold shadow-glow"
+            >
+              新测试
+            </Button>
+            <Button
+              onClick={handleShare}
+              variant="secondary"
+              size="lg"
+              className="font-bold"
+            >
+              <Share2 className="mr-2 h-5 w-5" />
+              分享
+            </Button>
+          </div>
           
           <div className="bg-muted/50 rounded-lg p-6 mb-6">
             <h3 className="text-xl font-bold text-primary mb-3">Your Hybrid Personality</h3>
@@ -215,38 +246,6 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
             )}
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {!generatedImage && (
-              <Button
-                onClick={generateHybridImage}
-                size="lg"
-                disabled={isGenerating}
-                className="font-bold shadow-glow"
-              >
-                <Wand2 className="mr-2 h-5 w-5" />
-                {isGenerating ? 'Generating...' : 'Generate AI Hybrid Image'}
-              </Button>
-            )}
-            
-            <Button
-              onClick={onRestart}
-              size="lg"
-              variant={generatedImage ? "default" : "secondary"}
-              className="font-bold shadow-glow"
-            >
-              新测试
-            </Button>
-            
-            <Button
-              onClick={handleShare}
-              variant="secondary"
-              size="lg"
-              className="font-bold"
-            >
-              <Share2 className="mr-2 h-5 w-5" />
-              Share Your Character
-            </Button>
-          </div>
         </div>
       </Card>
     </div>
