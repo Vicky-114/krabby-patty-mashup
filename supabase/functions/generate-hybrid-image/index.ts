@@ -19,24 +19,35 @@ serve(async (req) => {
       throw new Error('LOVABLE_API_KEY is not configured');
     }
 
-    // Build the image generation prompt
-    const prompt = `Create a unique SpongeBob SquarePants style character fusion with these specifications:
+    // Build the image generation prompt for a truly fused character
+    const prompt = `Create a SINGLE, UNIFIED SpongeBob SquarePants style character that is a seamless fusion of THREE characters. This is NOT a collage or overlay - it's ONE completely new character that naturally combines elements from all three.
 
-SHAPE (Body Structure & Silhouette): Based on ${shapeCharacter.name} - use their distinctive body shape, posture, and overall structural form.
+CHARACTER FUSION BLUEPRINT for "${userName}":
 
-COLOR (Main Color Scheme & Atmosphere): Based on ${colorCharacter.name} - apply their signature color palette, lighting mood, and tonal atmosphere.
+🏗️ BODY STRUCTURE (${shapeCharacter.percentage}% from ${shapeCharacter.name}):
+- Use ${shapeCharacter.name}'s basic body shape and proportions as the foundation
+- Adopt their distinctive posture and stance
+- Keep their characteristic silhouette recognizable
 
-PATTERN (Details & Textures): Based on ${patternCharacter.name} - incorporate their characteristic textures, patterns, and decorative elements.
+🎨 COLOR PALETTE (${colorCharacter.percentage}% from ${colorCharacter.name}):
+- Apply ${colorCharacter.name}'s signature colors across the ENTIRE body
+- Use their lighting style and color mood
+- Blend their color scheme into the base shape seamlessly
 
-This is "${userName}"'s unique personality hybrid. Create a cohesive, organically blended character that seamlessly merges these three elements. The character should:
-- Have a clear, recognizable silhouette from ${shapeCharacter.name}
-- Be colored in the style of ${colorCharacter.name}
-- Feature surface details and patterns inspired by ${patternCharacter.name}
-- Look like a natural, unified character design (not a collage)
-- Maintain the playful, cartoon aesthetic of Bikini Bottom
-- Be expressive and full of personality
+✨ SURFACE DETAILS (${patternCharacter.percentage}% from ${patternCharacter.name}):
+- Add ${patternCharacter.name}'s characteristic patterns and textures
+- Include their distinctive accessories or decorative elements
+- Integrate their unique surface features naturally
 
-Style: SpongeBob SquarePants cartoon art style, vibrant colors, clear outlines, professional character design.`;
+CRITICAL REQUIREMENTS:
+✓ Create ONE cohesive character (NOT separate images layered together)
+✓ All three elements must be organically blended into a single unified design
+✓ The character should look like it naturally belongs in Bikini Bottom
+✓ Maintain the classic SpongeBob cartoon art style with bold outlines
+✓ Make it expressive and full of personality
+✓ The result should be a believable "what if these three characters combined" design
+
+Style: Professional SpongeBob SquarePants character design, vibrant colors, clear black outlines, playful and cartoonish.`;
 
     console.log('Generating hybrid image with prompt:', prompt);
 
