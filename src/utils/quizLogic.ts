@@ -41,14 +41,8 @@ export function createHybridCharacter(
 ): HybridCharacter {
   const matchResult = computeMatch(traitScores);
   
-  // Get all characters with significant contribution (>3% confidence for maximum diversity)
-  const significantCharacters = matchResult.sorted.filter(c => c.confidence > 0.03);
-  
-  // Ensure at least 2-3 characters are included for diverse hybrid
-  const minCharacters = 2;
-  const finalCharacters = significantCharacters.length >= minCharacters 
-    ? significantCharacters 
-    : matchResult.sorted.slice(0, Math.max(minCharacters, significantCharacters.length));
+  // Always select exactly 3 characters for the hybrid
+  const finalCharacters = matchResult.sorted.slice(0, 3);
   
   // Calculate component percentages and normalize to 100%
   const totalConfidence = finalCharacters.reduce((sum, c) => sum + c.confidence, 0);
