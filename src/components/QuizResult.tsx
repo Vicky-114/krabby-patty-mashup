@@ -2,8 +2,10 @@ import { HybridCharacter } from '@/types/quiz';
 import { CHARACTERS } from '@/data/characters';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Share2 } from 'lucide-react';
+import { Share2, Wand2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { useState } from 'react';
 import bgImage from '@/assets/bg_bikini_bottom.jpg';
 
 interface QuizResultProps {
@@ -13,6 +15,8 @@ interface QuizResultProps {
 
 const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
   const { toast } = useToast();
+  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
   
   const handleShare = () => {
     const componentText = hybrid.componentBreakdown 
@@ -41,6 +45,54 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
     });
   };
   
+  const generateHybridImage = async () => {
+    if (!hybrid.componentBreakdown || hybrid.componentBreakdown.length < 3) {
+      toast({
+        title: "Not enough data",
+        description: "Need at least 3 character components to generate image",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsGenerating(true);
+    
+    try {
+      const top3 = hybrid.componentBreakdown.slice(0, 3);
+      const shapeCharacter = CHARACTERS[top3[0].key];
+      const colorCharacter = CHARACTERS[top3[1].key];
+      const patternCharacter = CHARACTERS[top3[2].key];
+
+      const { data, error } = await supabase.functions.invoke('generate-hybrid-image', {
+        body: {
+          shapeCharacter: { name: shapeCharacter.name, percentage: top3[0].percentage },
+          colorCharacter: { name: colorCharacter.name, percentage: top3[1].percentage },
+          patternCharacter: { name: patternCharacter.name, percentage: top3[2].percentage },
+          userName: hybrid.name
+        }
+      });
+
+      if (error) throw error;
+      
+      if (data?.imageUrl) {
+        setGeneratedImage(data.imageUrl);
+        toast({
+          title: "Image generated!",
+          description: `Shape: ${shapeCharacter.name}, Color: ${colorCharacter.name}, Pattern: ${patternCharacter.name}`,
+        });
+      }
+    } catch (error) {
+      console.error('Error generating image:', error);
+      toast({
+        title: "Generation failed",
+        description: error instanceof Error ? error.message : "Failed to generate hybrid image",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+  
   const primaryChar = CHARACTERS[hybrid.components[0]];
   
   return (
@@ -64,22 +116,46 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
             {hybrid.name}
           </h2>
           
-          {/* Hybrid character visualization */}
-          <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto mb-6">
-            {hybrid.components.slice(0, 3).map((charKey, idx) => (
-              <img
-                key={charKey}
-                src={CHARACTERS[charKey]?.image}
-                alt={CHARACTERS[charKey]?.name}
-                className="absolute inset-0 w-full h-full object-contain rounded-full border-4 border-primary shadow-glow transition-transform hover:scale-110"
-                style={{
-                  opacity: idx === 0 ? 1 : 0.5,
-                  transform: `translate(${idx * 15}px, ${idx * 15}px)`,
-                  filter: idx > 0 ? `hue-rotate(${idx * 30}deg)` : 'none',
-                }}
+          {/* AI Generated Hybrid Image or Character Visualization */}
+          {generatedImage ? (
+            <div className="w-full max-w-md mx-auto mb-6">
+              <img 
+                src={generatedImage}
+                alt="AI Generated Hybrid Character"
+                className="w-full h-auto rounded-lg border-4 border-primary shadow-glow"
               />
-            ))}
-          </div>
+              {hybrid.componentBreakdown && hybrid.componentBreakdown.length >= 3 && (
+                <div className="mt-3 p-3 bg-muted/70 rounded-lg text-sm">
+                  <p className="font-semibold text-primary mb-1">融合说明：</p>
+                  <p className="text-foreground">
+                    <span className="font-medium">形状来源：</span>{CHARACTERS[hybrid.componentBreakdown[0].key].name} ({hybrid.componentBreakdown[0].percentage}%)
+                  </p>
+                  <p className="text-foreground">
+                    <span className="font-medium">颜色来源：</span>{CHARACTERS[hybrid.componentBreakdown[1].key].name} ({hybrid.componentBreakdown[1].percentage}%)
+                  </p>
+                  <p className="text-foreground">
+                    <span className="font-medium">花纹来源：</span>{CHARACTERS[hybrid.componentBreakdown[2].key].name} ({hybrid.componentBreakdown[2].percentage}%)
+                  </p>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto mb-6">
+              {hybrid.components.slice(0, 3).map((charKey, idx) => (
+                <img
+                  key={charKey}
+                  src={CHARACTERS[charKey]?.image}
+                  alt={CHARACTERS[charKey]?.name}
+                  className="absolute inset-0 w-full h-full object-contain rounded-full border-4 border-primary shadow-glow transition-transform hover:scale-110"
+                  style={{
+                    opacity: idx === 0 ? 1 : 0.5,
+                    transform: `translate(${idx * 15}px, ${idx * 15}px)`,
+                    filter: idx > 0 ? `hue-rotate(${idx * 30}deg)` : 'none',
+                  }}
+                />
+              ))}
+            </div>
+          )}
           
           <div className="bg-muted/50 rounded-lg p-6 mb-6">
             <h3 className="text-xl font-bold text-primary mb-3">Your Hybrid Personality</h3>
@@ -126,9 +202,22 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {!generatedImage && (
+              <Button
+                onClick={generateHybridImage}
+                size="lg"
+                disabled={isGenerating}
+                className="font-bold shadow-glow"
+              >
+                <Wand2 className="mr-2 h-5 w-5" />
+                {isGenerating ? 'Generating...' : 'Generate AI Hybrid Image'}
+              </Button>
+            )}
+            
             <Button
               onClick={onRestart}
               size="lg"
+              variant={generatedImage ? "default" : "secondary"}
               className="font-bold shadow-glow"
             >
               Take Quiz Again
