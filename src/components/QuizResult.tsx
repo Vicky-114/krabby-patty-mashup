@@ -142,17 +142,31 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
           ) : (
             <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto mb-6">
               {hybrid.components.slice(0, 3).map((charKey, idx) => (
-                <img
-                  key={charKey}
-                  src={CHARACTERS[charKey]?.image}
-                  alt={CHARACTERS[charKey]?.name}
-                  className="absolute inset-0 w-full h-full object-contain rounded-full border-4 border-primary shadow-glow transition-transform hover:scale-110"
-                  style={{
-                    opacity: idx === 0 ? 1 : 0.5,
-                    transform: `translate(${idx * 15}px, ${idx * 15}px)`,
-                    filter: idx > 0 ? `hue-rotate(${idx * 30}deg)` : 'none',
-                  }}
-                />
+                <div key={charKey} className="absolute inset-0">
+                  <img
+                    src={CHARACTERS[charKey]?.image}
+                    alt={CHARACTERS[charKey]?.name}
+                    className="w-full h-full object-contain rounded-full border-4 border-primary shadow-glow transition-transform hover:scale-110"
+                    style={{
+                      opacity: idx === 0 ? 1 : 0.5,
+                      transform: `translate(${idx * 15}px, ${idx * 15}px)`,
+                      filter: idx > 0 ? `hue-rotate(${idx * 30}deg)` : 'none',
+                    }}
+                  />
+                  {/* Show Gary on Patrick's shorts if Patrick is in the mix */}
+                  {charKey === 'patrick' && idx === 0 && (
+                    <img
+                      src={CHARACTERS['gary']?.image}
+                      alt="Gary"
+                      className="absolute w-8 h-8 md:w-12 md:h-12 object-contain animate-bounce"
+                      style={{
+                        bottom: '25%',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                      }}
+                    />
+                  )}
+                </div>
               ))}
             </div>
           )}
