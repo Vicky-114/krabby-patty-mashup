@@ -18,8 +18,8 @@ export function computeMatch(traitScores: TraitScores): { topMatch: CharacterMat
   const scoreValues = Object.values(scores);
   const maxScore = Math.max(...scoreValues);
   
-  // Use lower temperature for softmax to create more distributed probabilities
-  const temperature = 1.5; // Higher temperature = more even distribution
+  // Use temperature to create balanced distribution across multiple characters
+  const temperature = 2.5; // Higher temperature = more even distribution for diverse hybrids
   const expScores = scoreValues.map(s => Math.exp((s - maxScore) / temperature));
   const sumExpScores = expScores.reduce((a, b) => a + b, 0);
   const probabilities = expScores.map(s => s / sumExpScores);
@@ -41,14 +41,21 @@ export function createHybridCharacter(
 ): HybridCharacter {
   const matchResult = computeMatch(traitScores);
   
-  // Get all characters with significant contribution (>5% confidence for more diversity)
-  const significantCharacters = matchResult.sorted.filter(c => c.confidence > 0.05);
+  // Get all characters with significant contribution (>3% confidence for maximum diversity)
+  const significantCharacters = matchResult.sorted.filter(c => c.confidence > 0.03);
   
-  // Calculate component percentages
-  const components = significantCharacters.map(c => ({
+  // Ensure at least 2-3 characters are included for diverse hybrid
+  const minCharacters = 2;
+  const finalCharacters = significantCharacters.length >= minCharacters 
+    ? significantCharacters 
+    : matchResult.sorted.slice(0, Math.max(minCharacters, significantCharacters.length));
+  
+  // Calculate component percentages and normalize to 100%
+  const totalConfidence = finalCharacters.reduce((sum, c) => sum + c.confidence, 0);
+  const components = finalCharacters.map(c => ({
     key: c.key,
     name: c.name,
-    percentage: Math.round(c.confidence * 100),
+    percentage: Math.round((c.confidence / totalConfidence) * 100),
   }));
   
   // Generate hybrid name using user's name
@@ -77,7 +84,8 @@ export function createHybridCharacter(
     return `${c.name} (${c.percentage}%)`;
   }).join(', ');
   
-  const description = `You are a unique hybrid character! Your personality is composed of: ${componentDescriptions}. This creates a one-of-a-kind Bikini Bottom personality that is exclusively ${userName}.`;
+  const characterNames = components.map(c => c.name).join(', ');
+  const description = `You are a unique hybrid of ${components.length} Bikini Bottom characters! Your personality blends together: ${componentDescriptions}. This creates a one-of-a-kind character that combines the best traits from ${characterNames} to form ${userName}'s unique personality.`;
   
   return {
     id: Date.now().toString(),
