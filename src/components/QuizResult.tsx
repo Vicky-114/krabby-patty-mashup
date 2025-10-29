@@ -234,7 +234,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
               variant={generatedImage ? "default" : "secondary"}
               className="font-bold shadow-glow"
             >
-              Take Quiz Again
+              新测试
             </Button>
             
             <Button
