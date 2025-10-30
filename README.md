@@ -6,7 +6,7 @@ An AI-powered interactive quiz that creates unique hybrid characters from the Sp
 
 ### Prerequisites
 
-Before you begin, make sure you have installed:
+The following software needs to be installed:
 - **Node.js** (version 18 or higher) - [Download here](https://nodejs.org/)
 - **npm** (comes with Node.js) or **bun**
 
@@ -37,9 +37,9 @@ Before you begin, make sure you have installed:
    ```
 
 4. **Open in browser**
-   - The terminal will show you a local URL (usually `http://localhost:8080`)
-   - Open that URL in your browser
-   - The app will hot-reload when you make changes to the code
+   - The terminal will display a local URL (usually `http://localhost:8080`)
+   - Open that URL in a browser
+   - The app will hot-reload when changes are made to the code
 
 ### Environment Variables
 
