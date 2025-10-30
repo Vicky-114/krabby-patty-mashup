@@ -126,15 +126,15 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
               />
               {hybrid.componentBreakdown && hybrid.componentBreakdown.length >= 3 && (
                 <div className="mt-3 p-3 bg-muted/70 rounded-lg text-sm">
-                  <p className="font-semibold text-primary mb-1">融合说明：</p>
+                  <p className="font-semibold text-primary mb-1">Fusion Details:</p>
                   <p className="text-foreground">
-                    <span className="font-medium">形状来源：</span>{CHARACTERS[hybrid.componentBreakdown[0].key].name} ({hybrid.componentBreakdown[0].percentage}%)
+                    <span className="font-medium">Shape Source:</span> {CHARACTERS[hybrid.componentBreakdown[0].key].name} ({hybrid.componentBreakdown[0].percentage}%)
                   </p>
                   <p className="text-foreground">
-                    <span className="font-medium">颜色来源：</span>{CHARACTERS[hybrid.componentBreakdown[1].key].name} ({hybrid.componentBreakdown[1].percentage}%)
+                    <span className="font-medium">Color Source:</span> {CHARACTERS[hybrid.componentBreakdown[1].key].name} ({hybrid.componentBreakdown[1].percentage}%)
                   </p>
                   <p className="text-foreground">
-                    <span className="font-medium">花纹来源：</span>{CHARACTERS[hybrid.componentBreakdown[2].key].name} ({hybrid.componentBreakdown[2].percentage}%)
+                    <span className="font-medium">Pattern Source:</span> {CHARACTERS[hybrid.componentBreakdown[2].key].name} ({hybrid.componentBreakdown[2].percentage}%)
                   </p>
                 </div>
               )}
@@ -180,7 +180,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
                 className="font-bold shadow-glow"
               >
                 <Wand2 className="mr-2 h-5 w-5" />
-                {isGenerating ? '正在生成…' : '生成AI融合图像'}
+                {isGenerating ? 'Generating...' : 'Generate AI Hybrid Image'}
               </Button>
             )}
             <Button
@@ -189,7 +189,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
               variant={generatedImage ? "default" : "secondary"}
               className="font-bold shadow-glow"
             >
-              新测试
+              Retake Quiz
             </Button>
             <Button
               onClick={handleShare}
@@ -198,7 +198,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
               className="font-bold"
             >
               <Share2 className="mr-2 h-5 w-5" />
-              分享
+              Share
             </Button>
           </div>
           
