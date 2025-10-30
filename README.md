@@ -2,42 +2,61 @@
 
 An AI-powered interactive quiz that creates unique hybrid characters from the SpongeBob SquarePants universe.
 
-## Project info
-
-**URL**: https://lovable.dev/projects/926f50db-9437-400a-a348-48593d695be0
-
-## Running Locally
+## 🚀 Running Locally
 
 ### Prerequisites
 
-- Node.js (v18 or higher)
-- npm or bun package manager
+Before you begin, make sure you have installed:
+- **Node.js** (version 18 or higher) - [Download here](https://nodejs.org/)
+- **npm** (comes with Node.js) or **bun**
 
-### Installation & Setup
+### Quick Start
 
-1. **Clone the repository**
+1. **Clone or download this repository**
    ```sh
-   git clone <YOUR_GIT_URL>
-   cd <YOUR_PROJECT_NAME>
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   cd YOUR_REPO_NAME
    ```
 
 2. **Install dependencies**
    ```sh
    npm install
    ```
+   Or if using bun:
+   ```sh
+   bun install
+   ```
 
 3. **Start the development server**
    ```sh
    npm run dev
    ```
+   Or if using bun:
+   ```sh
+   bun run dev
+   ```
 
-4. **Open your browser**
-   - Navigate to `http://localhost:8080` (or the port shown in your terminal)
-   - The app will automatically reload when you make changes
+4. **Open in browser**
+   - The terminal will show you a local URL (usually `http://localhost:8080`)
+   - Open that URL in your browser
+   - The app will hot-reload when you make changes to the code
 
 ### Environment Variables
 
-The project includes a `.env` file with pre-configured Supabase credentials. No additional setup is required for local development.
+All necessary environment variables are pre-configured in the `.env` file. No additional setup required!
+
+### Building for Production
+
+To create a production build:
+```sh
+npm run build
+```
+
+The built files will be in the `dist` folder.
+
+---
+
+## 🛠️ Development
 
 ## How can I edit this code?
 
