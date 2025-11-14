@@ -85,4 +85,89 @@ export const CHARACTERS: Record<string, Character> = {
     weights: { athletic: 3, confident: 2, social: 2, brave: 1, proud: 2 },
     image: larryImg,
   },
+  barnacle_boy: {
+    key: 'barnacle_boy',
+    name: 'Barnacle Boy',
+    weights: { grumpy: 3, loyal: 2, heroic: 2, nostalgic: 2, sidekick: 2 },
+  },
+  flying_dutchman: {
+    key: 'flying_dutchman',
+    name: 'Flying Dutchman',
+    weights: { dramatic: 3, scary: 3, theatrical: 2, powerful: 2, lonely: 1 },
+  },
+  king_neptune: {
+    key: 'king_neptune',
+    name: 'King Neptune',
+    weights: { royal: 3, powerful: 3, proud: 2, dramatic: 2, vain: 2 },
+  },
+  squilliam: {
+    key: 'squilliam',
+    name: 'Squilliam',
+    weights: { rich: 3, arrogant: 3, sophisticated: 2, competitive: 2, show_off: 2 },
+  },
+  bubble_bass: {
+    key: 'bubble_bass',
+    name: 'Bubble Bass',
+    weights: { picky: 3, cunning: 2, critical: 2, detailed: 2, antagonistic: 2 },
+  },
+  man_ray: {
+    key: 'man_ray',
+    name: 'Man Ray',
+    weights: { evil: 3, strong: 2, frustrated: 2, reformed: 1, dramatic: 2 },
+  },
+  dirty_bubble: {
+    key: 'dirty_bubble',
+    name: 'Dirty Bubble',
+    weights: { villainous: 3, powerful: 2, round: 1, mean: 2, pop_able: 1 },
+  },
+  flats: {
+    key: 'flats',
+    name: 'Flats the Flounder',
+    weights: { tough: 3, aggressive: 2, intimidating: 2, misunderstood: 1, flat: 1 },
+  },
+  dennis: {
+    key: 'dennis',
+    name: 'Dennis',
+    weights: { dangerous: 3, professional: 2, determined: 3, ruthless: 2, bounty_hunter: 2 },
+  },
+  patchy: {
+    key: 'patchy',
+    name: 'Patchy the Pirate',
+    weights: { enthusiastic: 3, fan: 3, clumsy: 2, loyal: 2, human: 1 },
+  },
+  potty: {
+    key: 'potty',
+    name: 'Potty the Parrot',
+    weights: { sarcastic: 3, annoying: 2, puppet: 1, critic: 2, sidekick: 1 },
+  },
+  harold: {
+    key: 'harold',
+    name: 'Harold SquarePants',
+    weights: { parental: 3, supportive: 2, calm: 2, responsible: 2, square: 1 },
+  },
+  margaret: {
+    key: 'margaret',
+    name: 'Margaret SquarePants',
+    weights: { motherly: 3, caring: 3, supportive: 2, sweet: 2, round: 1 },
+  },
+  grandma: {
+    key: 'grandma',
+    name: 'Grandma SquarePants',
+    weights: { sweet: 3, nurturing: 3, cookie_maker: 2, loving: 3, grandma: 2 },
+  },
+  flatts: {
+    key: 'flatts',
+    name: 'Flatts',
+    weights: { bully: 3, tough: 2, misunderstood: 2, angry: 2, flat: 1 },
+  },
+  kevin: {
+    key: 'kevin',
+    name: 'Kevin C. Cucumber',
+    weights: { jealous: 3, mean: 2, club_leader: 2, insecure: 2, fake: 2 },
+  },
+  squilliam_returns: {
+    key: 'squilliam_returns',
+    name: 'Squilliam Fancyson',
+    weights: { wealthy: 3, smug: 3, successful: 2, refined: 2, rival: 3 },
+  },
 };
