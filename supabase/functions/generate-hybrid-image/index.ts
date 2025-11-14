@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { shapeCharacter, colorCharacter, patternCharacter, userName } = await req.json();
+    const { shapeCharacter, colorCharacter, patternCharacter, userName, printMode } = await req.json();
     
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
@@ -20,6 +20,23 @@ serve(async (req) => {
     }
 
     // Build the image generation prompt for a truly fused character
+    const base3DRequirements = printMode === '3d' ? `
+
+🖨️ 3D PRINTING SPECIFICATIONS:
+- Design with SOLID, PRINTABLE geometry (no floating parts)
+- Use SIMPLE, CHUNKY shapes that can be 3D printed easily
+- Ensure all parts are CONNECTED and structurally sound
+- Add a FLAT BASE for stability when printed
+- Avoid thin, delicate features that might break
+- Design should work as a SINGLE PIECE 3D model
+- Think about wall thickness (minimum 2mm for small details)
+- Include clear separation between body parts for painting
+- Style should be SIMPLIFIED but recognizable
+
+COLOR MODE: Design in grayscale/single-tone suitable for painting after printing. Focus on FORM and STRUCTURE rather than complex colors.` : `
+
+COLOR MODE: Use vibrant SpongeBob colors with bold outlines, full cartoon color palette.`;
+
     const prompt = `Create a SINGLE, UNIFIED SpongeBob SquarePants style character that is a seamless fusion of THREE characters. This is NOT a collage or overlay - it's ONE completely new character that naturally combines elements from all three.
 
 CHARACTER FUSION BLUEPRINT for "${userName}":
@@ -38,6 +55,7 @@ CHARACTER FUSION BLUEPRINT for "${userName}":
 - Add ${patternCharacter.name}'s characteristic patterns and textures
 - Include their distinctive accessories or decorative elements
 - Integrate their unique surface features naturally
+${base3DRequirements}
 
 CRITICAL REQUIREMENTS:
 ✓ Create ONE cohesive character (NOT separate images layered together)
@@ -47,7 +65,7 @@ CRITICAL REQUIREMENTS:
 ✓ Make it expressive and full of personality
 ✓ The result should be a believable "what if these three characters combined" design
 
-Style: Professional SpongeBob SquarePants character design, vibrant colors, clear black outlines, playful and cartoonish.`;
+Style: Professional SpongeBob SquarePants character design${printMode === '3d' ? ', optimized for 3D printing with solid geometry' : ', vibrant colors, clear black outlines, playful and cartoonish'}.`;
 
     console.log('Generating hybrid image with prompt:', prompt);
 

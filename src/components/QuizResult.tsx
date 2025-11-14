@@ -17,6 +17,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
   const { toast } = useToast();
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [printMode, setPrintMode] = useState<'regular' | '3d'>('regular');
   
   const handleShare = () => {
     const componentText = hybrid.componentBreakdown 
@@ -68,7 +69,8 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
           shapeCharacter: { name: shapeCharacter.name, percentage: top3[0].percentage },
           colorCharacter: { name: colorCharacter.name, percentage: top3[1].percentage },
           patternCharacter: { name: patternCharacter.name, percentage: top3[2].percentage },
-          userName: hybrid.name
+          userName: hybrid.name,
+          printMode: printMode
         }
       });
 
@@ -171,35 +173,63 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
             </div>
           )}
           {/* Actions moved up for visibility */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+          <div className="flex flex-col gap-4 mb-6">
             {!generatedImage && (
+              <div className="flex justify-center gap-4 items-center mb-2">
+                <label className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
+                  <input
+                    type="radio"
+                    name="printMode"
+                    value="regular"
+                    checked={printMode === 'regular'}
+                    onChange={(e) => setPrintMode(e.target.value as 'regular' | '3d')}
+                    className="w-4 h-4 cursor-pointer"
+                  />
+                  🎨 Regular Style
+                </label>
+                <label className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
+                  <input
+                    type="radio"
+                    name="printMode"
+                    value="3d"
+                    checked={printMode === '3d'}
+                    onChange={(e) => setPrintMode(e.target.value as 'regular' | '3d')}
+                    className="w-4 h-4 cursor-pointer"
+                  />
+                  🖨️ 3D Print Mode
+                </label>
+              </div>
+            )}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {!generatedImage && (
+                <Button
+                  onClick={generateHybridImage}
+                  size="lg"
+                  disabled={isGenerating}
+                  className="font-bold shadow-glow"
+                >
+                  <Wand2 className="mr-2 h-5 w-5" />
+                  {isGenerating ? 'Generating...' : `Generate ${printMode === '3d' ? '3D Print ' : ''}AI Image`}
+                </Button>
+              )}
               <Button
-                onClick={generateHybridImage}
+                onClick={onRestart}
                 size="lg"
-                disabled={isGenerating}
+                variant={generatedImage ? "default" : "secondary"}
                 className="font-bold shadow-glow"
               >
-                <Wand2 className="mr-2 h-5 w-5" />
-                {isGenerating ? 'Generating...' : 'Generate AI Hybrid Image'}
+                Retake Quiz
               </Button>
-            )}
-            <Button
-              onClick={onRestart}
-              size="lg"
-              variant={generatedImage ? "default" : "secondary"}
-              className="font-bold shadow-glow"
-            >
-              Retake Quiz
-            </Button>
-            <Button
-              onClick={handleShare}
-              variant="secondary"
-              size="lg"
-              className="font-bold"
-            >
-              <Share2 className="mr-2 h-5 w-5" />
-              Share
-            </Button>
+              <Button
+                onClick={handleShare}
+                variant="secondary"
+                size="lg"
+                className="font-bold"
+              >
+                <Share2 className="mr-2 h-5 w-5" />
+                Share
+              </Button>
+            </div>
           </div>
           
           <div className="bg-muted/50 rounded-lg p-6 mb-6">
