@@ -41,8 +41,28 @@ export function createHybridCharacter(
 ): HybridCharacter {
   const matchResult = computeMatch(traitScores);
   
-  // Always select exactly 3 characters for the hybrid
-  const finalCharacters = matchResult.sorted.slice(0, 3);
+  // Dynamically select 3-9 characters based on confidence distribution
+  const sorted = matchResult.sorted;
+  const topConfidence = sorted[0].confidence;
+  
+  // Determine number of characters based on confidence spread
+  let numCharacters = 3; // minimum
+  
+  // If confidence is well-distributed, include more characters
+  for (let i = 1; i < 9 && i < sorted.length; i++) {
+    const confidenceRatio = sorted[i].confidence / topConfidence;
+    // Include character if their confidence is at least 30% of the top
+    if (confidenceRatio >= 0.3) {
+      numCharacters = i + 1;
+    } else {
+      break;
+    }
+  }
+  
+  // Ensure at least 3, at most 9
+  numCharacters = Math.max(3, Math.min(9, numCharacters));
+  
+  const finalCharacters = sorted.slice(0, numCharacters);
   
   // Calculate component percentages and normalize to 100%
   const totalConfidence = finalCharacters.reduce((sum, c) => sum + c.confidence, 0);
