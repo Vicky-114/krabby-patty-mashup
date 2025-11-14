@@ -46,7 +46,7 @@ export function createHybridCharacter(
   const topConfidence = sorted[0].confidence;
   
   // Determine number of characters based on confidence spread
-  let numCharacters = 3; // minimum
+  let numCharacters = 4; // minimum
   
   // If confidence is well-distributed, include more characters
   for (let i = 1; i < 9 && i < sorted.length; i++) {
@@ -59,8 +59,8 @@ export function createHybridCharacter(
     }
   }
   
-  // Ensure at least 3, at most 9
-  numCharacters = Math.max(3, Math.min(9, numCharacters));
+  // Ensure at least 4, at most 9
+  numCharacters = Math.max(4, Math.min(9, numCharacters));
   
   const finalCharacters = sorted.slice(0, numCharacters);
   
