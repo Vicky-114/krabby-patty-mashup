@@ -80,10 +80,21 @@ export default {
             height: "0",
           },
         },
+        "bubble-shimmer": {
+          "0%, 100%": {
+            boxShadow: "0 0 8px hsla(48 100% 50% / 0.3), inset 0 0 8px hsla(48 100% 50% / 0.2)",
+            opacity: "0.9",
+          },
+          "50%": {
+            boxShadow: "0 0 15px hsla(48 100% 50% / 0.5), inset 0 0 12px hsla(48 100% 50% / 0.35)",
+            opacity: "1",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "bubble-shimmer": "bubble-shimmer 3s ease-in-out infinite",
       },
     },
   },
