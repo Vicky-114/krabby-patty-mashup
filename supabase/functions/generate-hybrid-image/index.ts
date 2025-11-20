@@ -37,35 +37,34 @@ COLOR MODE: Design in grayscale/single-tone suitable for painting after printing
 
 COLOR MODE: Use vibrant SpongeBob colors with bold outlines, full cartoon color palette.`;
 
-    const prompt = `Create a SINGLE, UNIFIED SpongeBob SquarePants style character that is a seamless fusion of THREE characters. This is NOT a collage or overlay - it's ONE completely new character that naturally combines elements from all three.
+    const prompt = `Create a COMPLETELY NEW SpongeBob SquarePants style character named "${userName}". This is a UNIQUE, ORIGINAL character inspired by a fusion of character elements, but should NOT look like any specific existing character.
 
-CHARACTER FUSION BLUEPRINT for "${userName}":
+🎯 PRIMARY CHARACTER FOUNDATION (${shapeCharacter.percentage}% - ${shapeCharacter.name}):
+As the DOMINANT influence, use ${shapeCharacter.name}'s essence to define:
+- Overall personality vibe and body language (60-70% of the design)
+- General proportions and build
+- Facial expression style and mood
+- Core character energy and attitude
 
-🏗️ BODY STRUCTURE (${shapeCharacter.percentage}% from ${shapeCharacter.name}):
-- Use ${shapeCharacter.name}'s basic body shape and proportions as the foundation
-- Adopt their distinctive posture and stance
-- Keep their characteristic silhouette recognizable
-
-🎨 COLOR PALETTE (${colorCharacter.percentage}% from ${colorCharacter.name}):
-- Apply ${colorCharacter.name}'s signature colors across the ENTIRE body
-- Use their lighting style and color mood
-- Blend their color scheme into the base shape seamlessly
-
-✨ SURFACE DETAILS (${patternCharacter.percentage}% from ${patternCharacter.name}):
-- Add ${patternCharacter.name}'s characteristic patterns and textures
-- Include their distinctive accessories or decorative elements
-- Integrate their unique surface features naturally
+🌊 SUBTLE INFLUENCES TO BLEND IN:
+- ${colorCharacter.percentage}% from ${colorCharacter.name}: Gently incorporate some color tones or lighting style, but adapt them into something new
+- ${patternCharacter.percentage}% from ${patternCharacter.name}: Add hints of texture or small detail elements, but transform them into unique features
 ${base3DRequirements}
 
-CRITICAL REQUIREMENTS:
-✓ Create ONE cohesive character (NOT separate images layered together)
-✓ All three elements must be organically blended into a single unified design
-✓ The character should look like it naturally belongs in Bikini Bottom
-✓ Maintain the classic SpongeBob cartoon art style with bold outlines
-✓ Make it expressive and full of personality
-✓ The result should be a believable "what if these three characters combined" design
+⚠️ CRITICAL DESIGN RULES - FOLLOW STRICTLY:
+✓ This is a BRAND NEW CHARACTER - not a mix of recognizable parts
+✓ DO NOT use any character's signature features (no SpongeBob's square pants, no Patrick's star shape, no Squidward's tentacles, etc.)
+✓ Create an ORIGINAL design that captures the personality essence but looks completely different
+✓ The character should be UNRECOGNIZABLE as any specific character - it's a new Bikini Bottom resident
+✓ Avoid obvious accessories or clothing that would identify the source characters
+✓ Use the percentages as INSPIRATION WEIGHTS, not as assembly instructions
+✓ Make it look like a character that could naturally exist in SpongeBob's universe but is entirely new
+✓ Focus on creating a cohesive, original personality rather than combining recognizable features
 
-Style: Professional SpongeBob SquarePants character design${printMode === '3d' ? ', optimized for 3D printing with solid geometry' : ', vibrant colors, clear black outlines, playful and cartoonish'}.`;
+DESIGN APPROACH:
+Imagine designing a new character for the show who has a similar personality energy to ${shapeCharacter.name}, with subtle nods to the other characters' vibes. The result should be so original that viewers would say "Who's that new character?" not "Oh that's X mixed with Y".
+
+Style: Professional SpongeBob SquarePants character design${printMode === '3d' ? ', optimized for 3D printing with solid geometry' : ', vibrant colors, clear black outlines, playful and cartoonish'}. The character should feel authentic to the SpongeBob universe but be completely original and fresh.`;
 
     console.log('Generating hybrid image with prompt:', prompt);
 
