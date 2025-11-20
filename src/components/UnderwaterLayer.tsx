@@ -87,38 +87,6 @@ const UnderwaterLayer = () => {
 
   return (
     <div className="underwater-layer">
-      {/* 优化的海草元素 */}
-      {[...Array(8)].map((_, i) => {
-        const height = 100 + Math.random() * 100; // 100-200px
-        const left = (i * 12) + Math.random() * 4; // 更分散的分布
-        const width = 12 + Math.random() * 8; // 12-20px 宽度变化
-        const animationDelay = Math.random() * 4;
-        const duration = 4 + Math.random() * 3; // 4-7秒的动画时长
-        const swayType = i % 2 === 0 ? 'seaweed-sway' : 'seaweed-sway-reverse';
-        
-        return (
-          <div
-            key={`seaweed-${i}`}
-            className={`fixed ${swayType}`}
-            style={{
-              bottom: '0',
-              left: `${left}%`,
-              width: `${width}px`,
-              height: `${height}px`,
-              background: `linear-gradient(to top, 
-                hsla(160 40% 20% / 0.4), 
-                hsla(160 45% 25% / 0.3), 
-                hsla(160 50% 30% / 0.2),
-                hsla(160 55% 35% / 0.1))`,
-              borderRadius: `${width / 2}px ${width / 2}px 0 0`,
-              animationDelay: `${animationDelay}s`,
-              animationDuration: `${duration}s`,
-              filter: 'blur(0.5px)',
-              opacity: 0.6 + Math.random() * 0.3,
-            }}
-          />
-        );
-      })}
       
       {/* 增加气泡数量并优化大小分布 */}
       {[...Array(50)].map((_, i) => {
