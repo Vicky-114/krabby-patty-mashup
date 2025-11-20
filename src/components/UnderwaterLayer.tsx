@@ -1,8 +1,49 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 
 const UnderwaterLayer = () => {
   const bubblesRef = useRef<HTMLDivElement[]>([]);
   const [burstBubbles, setBurstBubbles] = useState<Array<{ id: string; x: number; y: number; particles: Array<{ angle: number; distance: number; size: number }> }>>([]);
+  const audioContextRef = useRef<AudioContext | null>(null);
+
+  // 创建气泡爆破音效
+  const playBubblePopSound = useCallback((bubbleSize: number) => {
+    try {
+      // 懒加载 AudioContext
+      if (!audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      }
+      
+      const audioContext = audioContextRef.current;
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      // 根据气泡大小调整音调和音量
+      const frequency = bubbleSize < 20 ? 800 : bubbleSize < 30 ? 600 : 400;
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      // 设置音效参数
+      oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(
+        frequency * 0.5,
+        audioContext.currentTime + 0.1
+      );
+      
+      // 音量包络：快速上升，快速下降
+      gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+      
+      // 使用正弦波产生柔和的音效
+      oscillator.type = 'sine';
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.15);
+    } catch (error) {
+      console.log('Audio playback not supported:', error);
+    }
+  }, []);
 
   const handleBubbleClick = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
     e.stopPropagation();
@@ -13,6 +54,9 @@ const UnderwaterLayer = () => {
     const x = rect.left + rect.width / 2;
     const y = rect.top + rect.height / 2;
     const bubbleSize = rect.width;
+    
+    // 播放音效
+    playBubblePopSound(bubbleSize);
     
     // 根据气泡大小调整粒子数量：小气泡6个，中气泡10个，大气泡14个
     const particleCount = bubbleSize < 20 ? 6 : bubbleSize < 30 ? 10 : 14;
