@@ -87,6 +87,34 @@ const UnderwaterLayer = () => {
 
   return (
     <div className="underwater-layer">
+      {/* 海草元素 */}
+      {[...Array(12)].map((_, i) => {
+        const height = 80 + Math.random() * 120; // 80-200px
+        const left = (i * 8.5) + Math.random() * 3; // 分布在屏幕底部
+        const animationDelay = Math.random() * 3;
+        const swayType = i % 2 === 0 ? 'seaweed-sway' : 'seaweed-sway-reverse';
+        
+        return (
+          <div
+            key={`seaweed-${i}`}
+            className={`fixed ${swayType}`}
+            style={{
+              bottom: '0',
+              left: `${left}%`,
+              width: '20px',
+              height: `${height}px`,
+              background: `linear-gradient(to top, 
+                hsl(150 60% 25% / 0.8), 
+                hsl(150 60% 30% / 0.6), 
+                hsl(150 60% 35% / 0.4))`,
+              borderRadius: '10px 10px 0 0',
+              animationDelay: `${animationDelay}s`,
+              boxShadow: 'inset 2px 0 4px hsla(150 60% 20% / 0.5)',
+            }}
+          />
+        );
+      })}
+      
       {/* 增加气泡数量并优化大小分布 */}
       {[...Array(50)].map((_, i) => {
         // 50% 小气泡, 30% 中气泡, 20% 大气泡
