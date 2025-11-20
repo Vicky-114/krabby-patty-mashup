@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import bgImage from '@/assets/bg_bikini_bottom.jpg';
+import UnderwaterLayer from './UnderwaterLayer';
+import { useRipple } from '@/hooks/useRipple';
 
 interface WelcomeScreenProps {
   onStart: (name: string) => void;
@@ -11,6 +13,7 @@ interface WelcomeScreenProps {
 const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
+  const { createRipple } = useRipple();
 
   const handleStart = () => {
     if (!name.trim()) {
@@ -29,9 +32,10 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         backgroundPosition: 'center',
       }}
     >
-      <div className="absolute inset-0 bg-background/40 backdrop-blur-sm" />
+      <UnderwaterLayer />
+      <div className="absolute inset-0 bg-background/40 backdrop-blur-sm" style={{ zIndex: 2 }} />
       
-      <Card className="relative w-full max-w-2xl p-8 md:p-12 bg-card/95 backdrop-blur-md border-primary border-4 shadow-deep">
+      <Card className="relative w-full max-w-2xl p-8 md:p-12 bg-card/95 backdrop-blur-md border-interactive shadow-deep underwater-sway" style={{ zIndex: 10 }}>
         <div className="text-center">
           <h1 className="text-4xl md:text-6xl font-black text-primary mb-4 pulse-glow">
             Bikini Bottom Personality Quiz
@@ -69,9 +73,12 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
           </div>
           
           <Button
-            onClick={handleStart}
+            onClick={(e) => {
+              createRipple(e);
+              handleStart();
+            }}
             size="lg"
-            className="text-xl font-bold px-12 py-6 h-auto shadow-glow transition-bounce hover:scale-105"
+            className="ripple-container text-xl font-bold px-12 py-6 h-auto shadow-glow transition-bounce hover:scale-105"
           >
             Start Quiz
           </Button>
