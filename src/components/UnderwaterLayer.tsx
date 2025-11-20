@@ -12,12 +12,20 @@ const UnderwaterLayer = () => {
     const rect = bubble.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
     const y = rect.top + rect.height / 2;
+    const bubbleSize = rect.width;
+    
+    // 根据气泡大小调整粒子数量：小气泡6个，中气泡10个，大气泡14个
+    const particleCount = bubbleSize < 20 ? 6 : bubbleSize < 30 ? 10 : 14;
+    
+    // 根据气泡大小调整扩散距离和粒子大小
+    const baseDistance = bubbleSize < 20 ? 30 : bubbleSize < 30 ? 50 : 70;
+    const particleBaseSize = bubbleSize < 20 ? 3 : bubbleSize < 30 ? 4 : 6;
     
     // 创建爆裂粒子
-    const particles = Array.from({ length: 8 }, (_, i) => ({
-      angle: (i * 360) / 8,
-      distance: 40 + Math.random() * 30,
-      size: 4 + Math.random() * 8,
+    const particles = Array.from({ length: particleCount }, (_, i) => ({
+      angle: (i * 360) / particleCount,
+      distance: baseDistance + Math.random() * (baseDistance * 0.5),
+      size: particleBaseSize + Math.random() * (particleBaseSize * 0.8),
     }));
     
     const burstId = `burst-${Date.now()}-${index}`;
