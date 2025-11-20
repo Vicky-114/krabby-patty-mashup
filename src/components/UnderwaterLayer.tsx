@@ -87,6 +87,19 @@ const UnderwaterLayer = () => {
 
   return (
     <div className="underwater-layer">
+      {/* 水波纹扰动层 */}
+      <div 
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(ellipse at 20% 30%, hsla(190 100% 70% / 0.03) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 70%, hsla(190 80% 60% / 0.03) 0%, transparent 50%),
+            radial-gradient(ellipse at 40% 80%, hsla(200 90% 65% / 0.02) 0%, transparent 50%)
+          `,
+          backgroundSize: '200% 200%, 250% 250%, 300% 300%',
+          animation: 'water-wave 15s ease-in-out infinite, water-ripple 8s ease-in-out infinite',
+        }}
+      />
       
       {/* 增加气泡数量并优化大小分布 */}
       {[...Array(50)].map((_, i) => {
