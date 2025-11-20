@@ -41,10 +41,10 @@ const UnderwaterLayer = () => {
           ref={(el) => {
             if (el) bubblesRef.current[i] = el;
           }}
-          className="bubble-rise fixed rounded-full bg-primary/15 pointer-events-none border border-primary/30"
+          className="bubble-rise fixed rounded-full bg-primary/40 pointer-events-none border-2 border-primary/60 shadow-lg shadow-primary/20"
           style={{
-            width: `${4 + Math.random() * 12}px`,
-            height: `${4 + Math.random() * 12}px`,
+            width: `${8 + Math.random() * 20}px`,
+            height: `${8 + Math.random() * 20}px`,
             left: `${Math.random() * 100}%`,
             bottom: '-50px',
             animationDelay: `${Math.random() * 8}s`,
