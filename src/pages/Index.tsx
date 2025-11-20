@@ -38,10 +38,12 @@ const Index = () => {
   const generateQuestion = async (type: 'initial' | 'adaptive') => {
     setIsLoading(true);
     try {
+      const askedQuestions = answers.map(a => a.questionText);
       const { data, error } = await supabase.functions.invoke('generate-quiz-question', {
         body: {
           type,
           previousAnswers: type === 'adaptive' ? answers : undefined,
+          askedQuestions: askedQuestions,
         },
       });
 

@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { type, previousAnswers } = await req.json();
+    const { type, previousAnswers, askedQuestions = [] } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     
     if (!LOVABLE_API_KEY) {
@@ -53,7 +53,10 @@ serve(async (req) => {
 
 Previous answers and their traits: ${JSON.stringify(previousAnswers)}
 
-Create a question that builds on these patterns while exploring slightly new territory. Return ONLY a JSON object with this structure:
+CRITICAL: Do NOT repeat any of these questions that have already been asked:
+${askedQuestions.map((q: string) => `- "${q}"`).join('\n')}
+
+Create a NEW, UNIQUE question that builds on these patterns while exploring slightly new territory. The question MUST be completely different from all previously asked questions. Return ONLY a JSON object with this structure:
 {
   "question": "Your adaptive question here?",
   "options": [
@@ -63,7 +66,7 @@ Create a question that builds on these patterns while exploring slightly new ter
     {"label": "Option 4", "traits": {"trait7": 2, "trait8": 1}}
   ]
 }`;
-      userPrompt = 'Generate an adaptive follow-up question that matches the user\'s personality pattern.';
+      userPrompt = 'Generate a NEW and UNIQUE adaptive follow-up question that is completely different from all previously asked questions.';
     }
 
     console.log('Calling AI with type:', type);
