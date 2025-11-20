@@ -87,11 +87,13 @@ const UnderwaterLayer = () => {
 
   return (
     <div className="underwater-layer">
-      {/* 海草元素 */}
-      {[...Array(12)].map((_, i) => {
-        const height = 80 + Math.random() * 120; // 80-200px
-        const left = (i * 8.5) + Math.random() * 3; // 分布在屏幕底部
-        const animationDelay = Math.random() * 3;
+      {/* 优化的海草元素 */}
+      {[...Array(8)].map((_, i) => {
+        const height = 100 + Math.random() * 100; // 100-200px
+        const left = (i * 12) + Math.random() * 4; // 更分散的分布
+        const width = 12 + Math.random() * 8; // 12-20px 宽度变化
+        const animationDelay = Math.random() * 4;
+        const duration = 4 + Math.random() * 3; // 4-7秒的动画时长
         const swayType = i % 2 === 0 ? 'seaweed-sway' : 'seaweed-sway-reverse';
         
         return (
@@ -101,15 +103,18 @@ const UnderwaterLayer = () => {
             style={{
               bottom: '0',
               left: `${left}%`,
-              width: '20px',
+              width: `${width}px`,
               height: `${height}px`,
               background: `linear-gradient(to top, 
-                hsl(150 60% 25% / 0.8), 
-                hsl(150 60% 30% / 0.6), 
-                hsl(150 60% 35% / 0.4))`,
-              borderRadius: '10px 10px 0 0',
+                hsla(160 40% 20% / 0.4), 
+                hsla(160 45% 25% / 0.3), 
+                hsla(160 50% 30% / 0.2),
+                hsla(160 55% 35% / 0.1))`,
+              borderRadius: `${width / 2}px ${width / 2}px 0 0`,
               animationDelay: `${animationDelay}s`,
-              boxShadow: 'inset 2px 0 4px hsla(150 60% 20% / 0.5)',
+              animationDuration: `${duration}s`,
+              filter: 'blur(0.5px)',
+              opacity: 0.6 + Math.random() * 0.3,
             }}
           />
         );
