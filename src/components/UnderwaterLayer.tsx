@@ -63,7 +63,7 @@ const UnderwaterLayer = () => {
               if (el) bubblesRef.current[i] = el;
             }}
             onClick={(e) => handleBubbleClick(e, i)}
-            className="bubble-rise fixed rounded-full bg-primary/35 cursor-pointer hover:bg-primary/50 border-2 border-primary/50"
+            className="bubble-rise fixed rounded-full bg-primary/35 cursor-pointer hover:bg-primary/50 border-2 border-primary/50 animate-bubble-shimmer"
             style={{
               width: `${size}px`,
               height: `${size}px`,
