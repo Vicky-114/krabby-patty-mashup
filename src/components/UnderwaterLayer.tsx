@@ -37,15 +37,15 @@ const UnderwaterLayer = () => {
     <div className="underwater-layer">
       {/* 增加气泡数量并优化大小分布 */}
       {[...Array(50)].map((_, i) => {
-        // 80% 小气泡, 15% 中气泡, 5% 大气泡
+        // 50% 小气泡, 30% 中气泡, 20% 大气泡
         const rand = Math.random();
         let size;
-        if (rand < 0.8) {
-          size = 4 + Math.random() * 8; // 小气泡 4-12px
-        } else if (rand < 0.95) {
-          size = 12 + Math.random() * 10; // 中气泡 12-22px
+        if (rand < 0.5) {
+          size = 6 + Math.random() * 10; // 小气泡 6-16px
+        } else if (rand < 0.8) {
+          size = 16 + Math.random() * 12; // 中气泡 16-28px
         } else {
-          size = 22 + Math.random() * 12; // 大气泡 22-34px
+          size = 28 + Math.random() * 18; // 大气泡 28-46px
         }
         
         return (
@@ -55,7 +55,7 @@ const UnderwaterLayer = () => {
               if (el) bubblesRef.current[i] = el;
             }}
             onClick={(e) => handleBubbleClick(e, i)}
-            className="bubble-rise fixed rounded-full bg-primary/15 cursor-pointer hover:bg-primary/25 border border-primary/30"
+            className="bubble-rise fixed rounded-full bg-primary/35 cursor-pointer hover:bg-primary/50 border-2 border-primary/50"
             style={{
               width: `${size}px`,
               height: `${size}px`,
@@ -74,7 +74,7 @@ const UnderwaterLayer = () => {
           {burst.particles.map((particle, pIndex) => (
             <div
               key={`${burst.id}-particle-${pIndex}`}
-              className="fixed rounded-full bg-primary/30 border border-primary/40 animate-burst-particle pointer-events-none"
+              className="fixed rounded-full bg-primary/45 border-2 border-primary/60 animate-burst-particle pointer-events-none"
               style={{
                 width: `${particle.size}px`,
                 height: `${particle.size}px`,
