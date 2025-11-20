@@ -1,37 +1,8 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 const UnderwaterLayer = () => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const bubblesRef = useRef<HTMLDivElement[]>([]);
   const [burstBubbles, setBurstBubbles] = useState<Array<{ id: string; x: number; y: number; particles: Array<{ angle: number; distance: number; size: number }> }>>([]);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-      
-      // 让靠近鼠标的气泡加速上升
-      bubblesRef.current.forEach((bubble) => {
-        if (!bubble) return;
-        const rect = bubble.getBoundingClientRect();
-        const bubbleX = rect.left + rect.width / 2;
-        const bubbleY = rect.top + rect.height / 2;
-        const distance = Math.sqrt(
-          Math.pow(bubbleX - e.clientX, 2) + Math.pow(bubbleY - e.clientY, 2)
-        );
-        
-        if (distance < 150) {
-          bubble.style.animationDuration = '2s';
-          bubble.style.transform = `scale(${1.2 + (150 - distance) / 150})`;
-        } else {
-          bubble.style.animationDuration = '';
-          bubble.style.transform = '';
-        }
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   const handleBubbleClick = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
     e.stopPropagation();
@@ -72,7 +43,7 @@ const UnderwaterLayer = () => {
             if (el) bubblesRef.current[i] = el;
           }}
           onClick={(e) => handleBubbleClick(e, i)}
-          className="bubble-rise fixed rounded-full bg-primary/40 cursor-pointer hover:bg-primary/60 border-2 border-primary/60 shadow-lg shadow-primary/20"
+          className="bubble-rise fixed rounded-full bg-primary/15 cursor-pointer hover:bg-primary/25 border border-primary/30"
           style={{
             width: `${8 + Math.random() * 20}px`,
             height: `${8 + Math.random() * 20}px`,
@@ -91,7 +62,7 @@ const UnderwaterLayer = () => {
           {burst.particles.map((particle, pIndex) => (
             <div
               key={`${burst.id}-particle-${pIndex}`}
-              className="fixed rounded-full bg-primary/70 border border-primary/90 animate-burst-particle pointer-events-none"
+              className="fixed rounded-full bg-primary/30 border border-primary/40 animate-burst-particle pointer-events-none"
               style={{
                 width: `${particle.size}px`,
                 height: `${particle.size}px`,
