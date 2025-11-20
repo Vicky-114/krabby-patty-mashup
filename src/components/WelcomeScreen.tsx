@@ -33,9 +33,8 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
       }}
     >
       <UnderwaterLayer />
-      <div className="absolute inset-0 bg-background/40 backdrop-blur-sm" style={{ zIndex: 2 }} />
       
-      <Card className="relative w-full max-w-2xl p-8 md:p-12 bg-card/95 backdrop-blur-md border-interactive shadow-deep underwater-sway" style={{ zIndex: 10 }}>
+      <Card className="relative w-full max-w-2xl p-8 md:p-12 bg-card/95 border-interactive shadow-deep underwater-sway" style={{ zIndex: 10 }}>
         <div className="text-center">
           <h1 className="text-4xl md:text-6xl font-black text-primary mb-4 pulse-glow">
             Bikini Bottom Personality Quiz
