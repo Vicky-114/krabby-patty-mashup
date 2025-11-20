@@ -35,26 +35,38 @@ const UnderwaterLayer = () => {
 
   return (
     <div className="underwater-layer">
-      {/* 增加气泡数量 */}
-      {[...Array(30)].map((_, i) => (
-        <div
-          key={`bubble-${i}`}
-          ref={(el) => {
-            if (el) bubblesRef.current[i] = el;
-          }}
-          onClick={(e) => handleBubbleClick(e, i)}
-          className="bubble-rise fixed rounded-full bg-primary/15 cursor-pointer hover:bg-primary/25 border border-primary/30"
-          style={{
-            width: `${8 + Math.random() * 20}px`,
-            height: `${8 + Math.random() * 20}px`,
-            left: `${Math.random() * 100}%`,
-            bottom: '-50px',
-            animationDelay: `${Math.random() * 8}s`,
-            animationDuration: `${6 + Math.random() * 6}s`,
-            transition: 'transform 0.3s ease, animation-duration 0.3s ease',
-          }}
-        />
-      ))}
+      {/* 增加气泡数量并优化大小分布 */}
+      {[...Array(50)].map((_, i) => {
+        // 80% 小气泡, 15% 中气泡, 5% 大气泡
+        const rand = Math.random();
+        let size;
+        if (rand < 0.8) {
+          size = 4 + Math.random() * 8; // 小气泡 4-12px
+        } else if (rand < 0.95) {
+          size = 12 + Math.random() * 10; // 中气泡 12-22px
+        } else {
+          size = 22 + Math.random() * 12; // 大气泡 22-34px
+        }
+        
+        return (
+          <div
+            key={`bubble-${i}`}
+            ref={(el) => {
+              if (el) bubblesRef.current[i] = el;
+            }}
+            onClick={(e) => handleBubbleClick(e, i)}
+            className="bubble-rise fixed rounded-full bg-primary/15 cursor-pointer hover:bg-primary/25 border border-primary/30"
+            style={{
+              width: `${size}px`,
+              height: `${size}px`,
+              left: `${Math.random() * 100}%`,
+              bottom: '-50px',
+              animationDelay: `${Math.random() * 10}s`,
+              animationDuration: `${8 + Math.random() * 8}s`, // 8-16秒，更多变化
+            }}
+          />
+        );
+      })}
       
       {/* 爆裂粒子效果 */}
       {burstBubbles.map((burst) => (
