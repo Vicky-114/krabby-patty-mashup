@@ -57,6 +57,8 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        "bubble-blue": "hsl(var(--bubble-blue))",
+        "bubble-glow": "hsl(var(--bubble-glow))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -82,11 +84,11 @@ export default {
         },
         "bubble-shimmer": {
           "0%, 100%": {
-            boxShadow: "0 0 8px hsla(48 100% 50% / 0.3), inset 0 0 8px hsla(48 100% 50% / 0.2)",
+            boxShadow: "0 0 8px hsla(190 100% 70% / 0.3), inset 0 0 8px hsla(190 100% 70% / 0.2)",
             opacity: "0.9",
           },
           "50%": {
-            boxShadow: "0 0 15px hsla(48 100% 50% / 0.5), inset 0 0 12px hsla(48 100% 50% / 0.35)",
+            boxShadow: "0 0 15px hsla(190 100% 70% / 0.5), inset 0 0 12px hsla(190 100% 70% / 0.35)",
             opacity: "1",
           },
         },

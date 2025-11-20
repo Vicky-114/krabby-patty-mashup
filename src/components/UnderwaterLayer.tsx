@@ -63,7 +63,7 @@ const UnderwaterLayer = () => {
               if (el) bubblesRef.current[i] = el;
             }}
             onClick={(e) => handleBubbleClick(e, i)}
-            className="bubble-rise fixed rounded-full bg-primary/35 cursor-pointer hover:bg-primary/50 border-2 border-primary/50 animate-bubble-shimmer"
+            className="bubble-rise fixed rounded-full bg-bubble-blue/40 cursor-pointer hover:bg-bubble-glow/60 border-2 border-bubble-glow/50 animate-bubble-shimmer transition-all duration-300"
             style={{
               width: `${size}px`,
               height: `${size}px`,
@@ -82,7 +82,7 @@ const UnderwaterLayer = () => {
           {burst.particles.map((particle, pIndex) => (
             <div
               key={`${burst.id}-particle-${pIndex}`}
-              className="fixed rounded-full bg-primary/45 border-2 border-primary/60 animate-burst-particle pointer-events-none"
+              className="fixed rounded-full bg-bubble-glow/60 border-2 border-bubble-blue/70 animate-burst-particle pointer-events-none"
               style={{
                 width: `${particle.size}px`,
                 height: `${particle.size}px`,

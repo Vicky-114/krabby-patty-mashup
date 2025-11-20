@@ -41,6 +41,7 @@ All colors MUST be HSL.
 
     /* Custom ocean effects */
     --bubble-glow: 190 100% 70%;
+    --bubble-blue: 190 80% 65%;
     --jellyfish-pink: 330 70% 75%;
     --coral-orange: 15 90% 65%;
     
@@ -221,13 +222,13 @@ All colors MUST be HSL.
   /* Bubble shimmer animation */
   @keyframes bubble-shimmer {
     0%, 100% {
-      box-shadow: 0 0 8px hsla(48 100% 50% / 0.3),
-                  inset 0 0 8px hsla(48 100% 50% / 0.2);
+      box-shadow: 0 0 8px hsla(190 100% 70% / 0.3),
+                  inset 0 0 8px hsla(190 100% 70% / 0.2);
       opacity: 0.9;
     }
     50% {
-      box-shadow: 0 0 15px hsla(48 100% 50% / 0.5),
-                  inset 0 0 12px hsla(48 100% 50% / 0.35);
+      box-shadow: 0 0 15px hsla(190 100% 70% / 0.5),
+                  inset 0 0 12px hsla(190 100% 70% / 0.35);
       opacity: 1;
     }
   }
