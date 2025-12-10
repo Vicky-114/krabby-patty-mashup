@@ -19,7 +19,7 @@ export function computeMatch(traitScores: TraitScores): { topMatch: CharacterMat
   const maxScore = Math.max(...scoreValues);
   
   // Use temperature to create balanced distribution across multiple characters
-  const temperature = 2.5; // Higher temperature = more even distribution for diverse hybrids
+  const temperature = 4.5; // Higher temperature = more even distribution for diverse hybrids
   const expScores = scoreValues.map(s => Math.exp((s - maxScore) / temperature));
   const sumExpScores = expScores.reduce((a, b) => a + b, 0);
   const probabilities = expScores.map(s => s / sumExpScores);
