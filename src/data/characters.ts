@@ -23,6 +23,12 @@ import dennisImg from '@/assets/dennis.png';
 import dirtyBubbleImg from '@/assets/dirty_bubble.png';
 import patchyImg from '@/assets/patchy.png';
 import grandmaImg from '@/assets/grandma.png';
+import fredImg from '@/assets/fred.png';
+import perchPerkinsImg from '@/assets/perch_perkins.png';
+import wormyImg from '@/assets/wormy.png';
+import scooterImg from '@/assets/scooter.png';
+import oldManJenkinsImg from '@/assets/old_man_jenkins.png';
+import flatsImg from '@/assets/flats.png';
 
 export const CHARACTERS: Record<string, Character> = {
   spongebob: {
@@ -181,6 +187,7 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'flatts',
     name: 'Flatts',
     weights: { bully: 3, tough: 2, misunderstood: 2, angry: 2, flat: 1 },
+    image: flatsImg,
   },
   kevin: {
     key: 'kevin',
@@ -405,11 +412,13 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'fred',
     name: 'Fred',
     weights: { unlucky: 3, loud: 2, injured: 3, complaining: 2, recurring: 2 },
+    image: fredImg,
   },
   scooter: {
     key: 'scooter',
     name: 'Scooter',
     weights: { surfer: 3, laid_back: 2, casual: 2, beachy: 3, cool: 2 },
+    image: scooterImg,
   },
   old_man_walker: {
     key: 'old_man_walker',
@@ -420,6 +429,7 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'old_man_jenkins',
     name: 'Old Man Jenkins',
     weights: { elderly: 3, confused: 2, forgetful: 2, cranky: 2, multiple_versions: 2 },
+    image: oldManJenkinsImg,
   },
   don_whale: {
     key: 'don_whale',
@@ -435,6 +445,7 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'perch_perkins',
     name: 'Perch Perkins',
     weights: { journalist: 3, professional: 2, reporter: 3, news: 3, serious: 2 },
+    image: perchPerkinsImg,
   },
   // Villains (additional)
   the_strangler: {
@@ -516,6 +527,7 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'wormy',
     name: 'Wormy',
     weights: { cute: 3, pet: 2, butterfly: 2, innocent: 3, misunderstood: 2 },
+    image: wormyImg,
   },
   mystery: {
     key: 'mystery',

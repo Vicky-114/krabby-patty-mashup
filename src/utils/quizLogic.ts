@@ -4,22 +4,25 @@ import { CHARACTERS } from '@/data/characters';
 export function computeMatch(traitScores: TraitScores): { topMatch: CharacterMatch; sorted: CharacterMatch[] } {
   const scores: Record<string, number> = {};
   
+  // Calculate raw scores with a baseline to give all characters a chance
   for (const charKey in CHARACTERS) {
-    let score = 0;
+    let score = 1; // Baseline score so every character has some chance
     const charWeights = CHARACTERS[charKey].weights;
     for (const trait in traitScores) {
       if (charWeights[trait]) {
         score += traitScores[trait] * charWeights[trait];
       }
     }
+    // Add small random factor for diversity (0-2 points)
+    score += Math.random() * 2;
     scores[charKey] = score;
   }
 
   const scoreValues = Object.values(scores);
   const maxScore = Math.max(...scoreValues);
   
-  // Use temperature to create balanced distribution across multiple characters
-  const temperature = 4.5; // Higher temperature = more even distribution for diverse hybrids
+  // Use higher temperature for more diverse distribution
+  const temperature = 6; // Higher = more even distribution
   const expScores = scoreValues.map(s => Math.exp((s - maxScore) / temperature));
   const sumExpScores = expScores.reduce((a, b) => a + b, 0);
   const probabilities = expScores.map(s => s / sumExpScores);
