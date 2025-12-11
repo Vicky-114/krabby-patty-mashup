@@ -11,6 +11,12 @@ import karenImg from '@/assets/karen.png';
 import pearlImg from '@/assets/pearl.png';
 import larryImg from '@/assets/larry.png';
 import mermaidManImg from '@/assets/mermaid_man.png';
+import barnacleBoyImg from '@/assets/barnacle_boy.png';
+import flyingDutchmanImg from '@/assets/flying_dutchman.png';
+import kingNeptuneImg from '@/assets/king_neptune.png';
+import squilliamImg from '@/assets/squilliam.png';
+import bubbleBassImg from '@/assets/bubble_bass.png';
+import manRayImg from '@/assets/man_ray.png';
 
 export const CHARACTERS: Record<string, Character> = {
   spongebob: {
@@ -89,31 +95,37 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'barnacle_boy',
     name: 'Barnacle Boy',
     weights: { grumpy: 3, loyal: 2, heroic: 2, nostalgic: 2, sidekick: 2 },
+    image: barnacleBoyImg,
   },
   flying_dutchman: {
     key: 'flying_dutchman',
     name: 'Flying Dutchman',
     weights: { dramatic: 3, scary: 3, theatrical: 2, powerful: 2, lonely: 1 },
+    image: flyingDutchmanImg,
   },
   king_neptune: {
     key: 'king_neptune',
     name: 'King Neptune',
     weights: { royal: 3, powerful: 3, proud: 2, dramatic: 2, vain: 2 },
+    image: kingNeptuneImg,
   },
   squilliam: {
     key: 'squilliam',
     name: 'Squilliam',
     weights: { rich: 3, arrogant: 3, sophisticated: 2, competitive: 2, show_off: 2 },
+    image: squilliamImg,
   },
   bubble_bass: {
     key: 'bubble_bass',
     name: 'Bubble Bass',
     weights: { picky: 3, cunning: 2, critical: 2, detailed: 2, antagonistic: 2 },
+    image: bubbleBassImg,
   },
   man_ray: {
     key: 'man_ray',
     name: 'Man Ray',
     weights: { evil: 3, strong: 2, frustrated: 2, reformed: 1, dramatic: 2 },
+    image: manRayImg,
   },
   dirty_bubble: {
     key: 'dirty_bubble',
