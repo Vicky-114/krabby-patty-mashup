@@ -419,11 +419,19 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
                   
                   return (
                     <div key={component.key} className="flex items-center gap-3 bg-background/50 rounded-lg p-3">
-                      <img 
-                        src={character.image} 
-                        alt={character.name}
-                        className="w-12 h-12 rounded-full border-2 border-primary object-contain"
-                      />
+                      {character.image ? (
+                        <img 
+                          src={character.image} 
+                          alt={character.name}
+                          className="w-12 h-12 rounded-full border-2 border-primary object-contain bg-background"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 rounded-full border-2 border-primary bg-primary/20 flex items-center justify-center">
+                          <span className="text-lg font-bold text-primary">
+                            {character.name.charAt(0)}
+                          </span>
+                        </div>
+                      )}
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-semibold text-foreground">{character.name}</span>
