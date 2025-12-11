@@ -17,6 +17,12 @@ import kingNeptuneImg from '@/assets/king_neptune.png';
 import squilliamImg from '@/assets/squilliam.png';
 import bubbleBassImg from '@/assets/bubble_bass.png';
 import manRayImg from '@/assets/man_ray.png';
+import doodlebobImg from '@/assets/doodlebob.png';
+import mindyImg from '@/assets/mindy.png';
+import dennisImg from '@/assets/dennis.png';
+import dirtyBubbleImg from '@/assets/dirty_bubble.png';
+import patchyImg from '@/assets/patchy.png';
+import grandmaImg from '@/assets/grandma.png';
 
 export const CHARACTERS: Record<string, Character> = {
   spongebob: {
@@ -131,6 +137,7 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'dirty_bubble',
     name: 'Dirty Bubble',
     weights: { villainous: 3, powerful: 2, round: 1, mean: 2, pop_able: 1 },
+    image: dirtyBubbleImg,
   },
   flats: {
     key: 'flats',
@@ -141,11 +148,13 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'dennis',
     name: 'Dennis',
     weights: { dangerous: 3, professional: 2, determined: 3, ruthless: 2, bounty_hunter: 2 },
+    image: dennisImg,
   },
   patchy: {
     key: 'patchy',
     name: 'Patchy the Pirate',
     weights: { enthusiastic: 3, fan: 3, clumsy: 2, loyal: 2, human: 1 },
+    image: patchyImg,
   },
   potty: {
     key: 'potty',
@@ -166,6 +175,7 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'grandma',
     name: 'Grandma SquarePants',
     weights: { sweet: 3, nurturing: 3, cookie_maker: 2, loving: 3, grandma: 2 },
+    image: grandmaImg,
   },
   flatts: {
     key: 'flatts',
@@ -222,6 +232,7 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'doodlebob',
     name: 'DoodleBob',
     weights: { chaotic: 3, sketchy: 3, aggressive: 2, creative: 2, artistic: 2 },
+    image: doodlebobImg,
   },
   robobob: {
     key: 'robobob',
@@ -483,6 +494,7 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'mindy',
     name: 'Mindy',
     weights: { princess: 3, kind: 3, supportive: 2, helpful: 2, sweet: 2 },
+    image: mindyImg,
   },
   cyclops: {
     key: 'cyclops',
