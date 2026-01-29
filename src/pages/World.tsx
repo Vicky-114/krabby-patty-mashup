@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { HybridCharacter } from '@/types/quiz';
 import { loadHybrids } from '@/utils/quizLogic';
 import FloatingHybrid from '@/components/FloatingHybrid';
+import UnderwaterLayer from '@/components/UnderwaterLayer';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +29,9 @@ const World = () => {
     >
       {/* Overlay for better visibility */}
       <div className="absolute inset-0 bg-background/30" />
+
+      {/* Underwater effects */}
+      <UnderwaterLayer />
 
       {/* Back button */}
       <div className="fixed top-4 left-4 z-50">
