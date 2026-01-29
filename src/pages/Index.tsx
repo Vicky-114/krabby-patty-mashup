@@ -133,15 +133,19 @@ const Index = () => {
 
     // Check if we should end the quiz
     const matchResult = computeMatch(newTraitScores);
-    const minQuestions = 7; // Minimum questions required for diverse results
+    const minQuestions = 8; // Minimum questions before ending
+    const maxQuestions = 10; // Maximum questions to keep quiz short
     
     console.log(`Question ${questionNumber} answered. Current confidence: ${(matchResult.topMatch.confidence * 100).toFixed(1)}%`);
     console.log('Top match:', matchResult.topMatch.name);
-    console.log(`Minimum questions required: ${minQuestions}, current: ${questionNumber}`);
+    console.log(`Questions: ${questionNumber}/${maxQuestions} (min: ${minQuestions})`);
     
-    // Continue until 90% confidence is reached AND at least minimum questions answered
-    if (matchResult.topMatch.confidence >= 0.9 && questionNumber >= minQuestions) {
-      console.log(`✓ Quiz complete! Reached ${(matchResult.topMatch.confidence * 100).toFixed(1)}% confidence after ${questionNumber} questions`);
+    // End quiz if: reached max questions OR (high confidence AND at least min questions)
+    const shouldEnd = questionNumber >= maxQuestions || 
+                      (matchResult.topMatch.confidence >= 0.85 && questionNumber >= minQuestions);
+    
+    if (shouldEnd) {
+      console.log(`✓ Quiz complete! ${(matchResult.topMatch.confidence * 100).toFixed(1)}% confidence after ${questionNumber} questions`);
       
       // Create hybrid character with user's name
       const hybrid = createHybridCharacter(newTraitScores, newAnswers, userName);
@@ -157,14 +161,11 @@ const Index = () => {
       
       toast({
         title: "Quiz Complete!",
-        description: `After ${questionNumber} questions, we found your perfect character match at ${(matchResult.topMatch.confidence * 100).toFixed(0)}% confidence!`,
+        description: `After ${questionNumber} questions, we found your perfect character match!`,
       });
     } else {
       // Generate next question (adaptive)
-      const reason = questionNumber < minQuestions 
-        ? `need ${minQuestions - questionNumber} more questions (minimum ${minQuestions})`
-        : `need ${((0.9 - matchResult.topMatch.confidence) * 100).toFixed(1)}% more confidence`;
-      console.log(`→ Generating question ${questionNumber + 1} (${reason})`);
+      console.log(`→ Generating question ${questionNumber + 1}/${maxQuestions}`);
       setQuestionNumber(prev => prev + 1);
       generateQuestion('adaptive');
     }
