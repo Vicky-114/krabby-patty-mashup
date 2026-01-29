@@ -6,6 +6,7 @@ import { computeMatch, createHybridCharacter, saveHybrid } from '@/utils/quizLog
 import WelcomeScreen from '@/components/WelcomeScreen';
 import QuizQuestion from '@/components/QuizQuestion';
 import QuizResult from '@/components/QuizResult';
+import BackgroundMusic from '@/components/BackgroundMusic';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Globe } from 'lucide-react';
@@ -195,6 +196,9 @@ const Index = () => {
           World
         </Button>
       </div>
+
+      {/* Background Music */}
+      <BackgroundMusic />
 
       {/* Quiz content */}
       {!quizStarted && (
