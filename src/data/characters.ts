@@ -29,6 +29,12 @@ import wormyImg from '@/assets/wormy.png';
 import scooterImg from '@/assets/scooter.png';
 import oldManJenkinsImg from '@/assets/old_man_jenkins.png';
 import flatsImg from '@/assets/flats.png';
+import alaskanBullWormImg from '@/assets/alaskan_bull_worm.png';
+import clamuImg from '@/assets/clamu.png';
+import medievalSpongebobImg from '@/assets/medieval_spongebob.png';
+import mysteryImg from '@/assets/mystery.png';
+import bubbleBuddyImg from '@/assets/bubble_buddy.png';
+import cyclopsImg from '@/assets/cyclops.png';
 
 export const CHARACTERS: Record<string, Character> = {
   spongebob: {
@@ -511,6 +517,7 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'cyclops',
     name: 'Cyclops',
     weights: { terrifying: 3, giant: 3, collector: 2, dangerous: 3, shell: 2 },
+    image: cyclopsImg,
   },
   bubbles: {
     key: 'bubbles',
@@ -533,25 +540,35 @@ export const CHARACTERS: Record<string, Character> = {
     key: 'mystery',
     name: 'Mystery',
     weights: { seahorse: 3, wild: 2, beautiful: 2, free_spirited: 2, majestic: 2 },
+    image: mysteryImg,
   },
   clamu: {
     key: 'clamu',
     name: 'Clamu',
     weights: { giant: 3, mother: 2, protective: 3, oyster: 3, fierce: 2 },
+    image: clamuImg,
   },
   alaskan_bull_worm: {
     key: 'alaskan_bull_worm',
     name: 'Alaskan Bull Worm',
     weights: { gigantic: 3, terrifying: 3, destructive: 3, monster: 3, legendary: 2 },
+    image: alaskanBullWormImg,
   },
   medieval_spongebob: {
     key: 'medieval_spongebob',
     name: 'Medieval SpongeBob',
     weights: { knight: 3, chivalrous: 2, brave: 2, medieval: 3, honorable: 2 },
+    image: medievalSpongebobImg,
   },
   evil_bob: {
     key: 'evil_bob',
     name: 'Evil Bob',
     weights: { evil: 3, opposite: 3, mean: 2, dark: 2, villainous: 3 },
+  },
+  bubble_buddy: {
+    key: 'bubble_buddy',
+    name: 'Bubble Buddy',
+    weights: { friendly: 3, imaginary: 2, loyal: 2, innocent: 3, bubble: 2 },
+    image: bubbleBuddyImg,
   },
 };
