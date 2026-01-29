@@ -3,6 +3,7 @@ import { HybridCharacter } from '@/types/quiz';
 import { loadHybrids } from '@/utils/quizLogic';
 import FloatingHybrid from '@/components/FloatingHybrid';
 import UnderwaterLayer from '@/components/UnderwaterLayer';
+import BackgroundMusic from '@/components/BackgroundMusic';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -32,6 +33,9 @@ const World = () => {
 
       {/* Underwater effects */}
       <UnderwaterLayer />
+
+      {/* Background Music */}
+      <BackgroundMusic />
 
       {/* Back button */}
       <div className="fixed top-4 left-4 z-50">
