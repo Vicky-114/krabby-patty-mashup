@@ -2,28 +2,33 @@ import { HybridCharacter } from '@/types/quiz';
 import { CHARACTERS } from '@/data/characters';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Share2, Wand2, Box, Download, Image, Eye, EyeOff } from 'lucide-react';
+import { Share2, Box, Download, Image, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import bgImage from '@/assets/bg_bikini_bottom.jpg';
 
 interface QuizResultProps {
   hybrid: HybridCharacter;
   onRestart: () => void;
+  onImageGenerated?: (imageUrl: string) => void;
 }
 
-const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
+const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) => {
   const { toast } = useToast();
-  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
+  const [generatedImage, setGeneratedImage] = useState<string | null>(hybrid.generatedImageUrl || null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [printMode, setPrintMode] = useState<'regular' | '3d'>('regular');
   const [modelFormat, setModelFormat] = useState<'stl' | 'obj'>('stl');
   const [isGenerating3D, setIsGenerating3D] = useState(false);
   const [generated3DModel, setGenerated3DModel] = useState<string | null>(null);
-  const [showImage, setShowImage] = useState(true);
-  const [show3DModel, setShow3DModel] = useState(true);
   
+  // Auto-generate image on mount if not already generated
+  useEffect(() => {
+    if (!generatedImage && hybrid.componentBreakdown && hybrid.componentBreakdown.length >= 3) {
+      generateHybridImage();
+    }
+  }, []);
+
   const handleShare = () => {
     const componentText = hybrid.componentBreakdown 
       ? hybrid.componentBreakdown.map(c => `${c.name} (${c.percentage}%)`).join(', ')
@@ -75,7 +80,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
           colorCharacter: { name: colorCharacter.name, percentage: top3[1].percentage },
           patternCharacter: { name: patternCharacter.name, percentage: top3[2].percentage },
           userName: hybrid.name,
-          printMode: printMode
+          printMode: 'regular'
         }
       });
 
@@ -83,9 +88,10 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
       
       if (data?.imageUrl) {
         setGeneratedImage(data.imageUrl);
+        onImageGenerated?.(data.imageUrl);
         toast({
-          title: "Image generated!",
-          description: `Shape: ${shapeCharacter.name}, Color: ${colorCharacter.name}, Pattern: ${patternCharacter.name}`,
+          title: "Your hybrid character is ready!",
+          description: `A unique fusion of ${shapeCharacter.name}, ${colorCharacter.name}, and ${patternCharacter.name}`,
         });
       }
     } catch (error) {
@@ -104,7 +110,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
     if (!generatedImage) {
       toast({
         title: "Image required",
-        description: "Please generate an AI image first before creating a 3D model",
+        description: "Please wait for the image to generate first",
         variant: "destructive"
       });
       return;
@@ -126,7 +132,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
       if (data?.modelUrl) {
         setGenerated3DModel(data.modelUrl);
         toast({
-          title: "3D Model generated!",
+          title: "3D Model ready!",
           description: `Format: ${modelFormat.toUpperCase()}`,
         });
       } else if (data?.message) {
@@ -148,9 +154,18 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
     }
   };
 
+  const downloadImage = () => {
+    if (!generatedImage) return;
+    const link = document.createElement('a');
+    link.href = generatedImage;
+    link.download = `${hybrid.name.replace(/\s+/g, '_')}_hybrid.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const download3DModel = () => {
     if (!generated3DModel) return;
-    
     const link = document.createElement('a');
     link.href = generated3DModel;
     link.download = `${hybrid.name.replace(/\s+/g, '_')}_model.${modelFormat}`;
@@ -158,8 +173,6 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
     link.click();
     document.body.removeChild(link);
   };
-  
-  const primaryChar = CHARACTERS[hybrid.components[0]];
   
   return (
     <div 
@@ -172,7 +185,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
     >
       <div className="absolute inset-0 bg-background/40 backdrop-blur-sm" />
       
-      <Card className="relative w-full max-w-3xl p-8 md:p-12 bg-card/95 backdrop-blur-md border-primary border-4 shadow-deep">
+      <Card className="relative w-full max-w-3xl p-8 md:p-12 bg-card/95 backdrop-blur-md border-primary border-4 shadow-deep overflow-y-auto max-h-[90vh]">
         <div className="text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-primary mb-4 pulse-glow">
             You're a Hybrid Character!
@@ -182,89 +195,31 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
             {hybrid.name}
           </h2>
           
-          {/* Generated Content Display - Both Image and 3D can be visible */}
-          <div className="space-y-4 mb-6">
-            {/* AI Generated Image Section */}
-            {generatedImage && (
-              <div className="w-full max-w-md mx-auto">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
-                    <Image className="w-5 h-5" />
-                    AI Generated Image
-                  </h3>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setShowImage(!showImage)}
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    {showImage ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    {showImage ? 'Hide' : 'Show'}
-                  </Button>
-                </div>
-                {showImage && (
-                  <>
-                    <img 
-                      src={generatedImage}
-                      alt="AI Generated Hybrid Character"
-                      className="w-full h-auto rounded-lg border-4 border-primary shadow-glow"
-                    />
-                    {hybrid.componentBreakdown && hybrid.componentBreakdown.length >= 3 && (
-                      <div className="mt-3 p-3 bg-muted/70 rounded-lg text-sm">
-                        <p className="font-semibold text-primary mb-1">Fusion Details:</p>
-                        <p className="text-foreground">
-                          <span className="font-medium">Shape Source:</span> {CHARACTERS[hybrid.componentBreakdown[0].key].name} ({hybrid.componentBreakdown[0].percentage}%)
-                        </p>
-                        <p className="text-foreground">
-                          <span className="font-medium">Color Source:</span> {CHARACTERS[hybrid.componentBreakdown[1].key].name} ({hybrid.componentBreakdown[1].percentage}%)
-                        </p>
-                        <p className="text-foreground">
-                          <span className="font-medium">Pattern Source:</span> {CHARACTERS[hybrid.componentBreakdown[2].key].name} ({hybrid.componentBreakdown[2].percentage}%)
-                        </p>
-                      </div>
-                    )}
-                  </>
-                )}
+          {/* Main Character Display */}
+          <div className="mb-6">
+            {isGenerating ? (
+              <div className="w-full max-w-md mx-auto p-12 bg-muted/50 rounded-lg border-4 border-primary/50">
+                <Loader2 className="w-16 h-16 animate-spin text-primary mx-auto mb-4" />
+                <p className="text-lg font-medium text-foreground">Creating your unique hybrid character...</p>
+                <p className="text-sm text-muted-foreground mt-2">This may take a moment</p>
               </div>
-            )}
-
-            {/* 3D Model Section */}
-            {generated3DModel && (
+            ) : generatedImage ? (
               <div className="w-full max-w-md mx-auto">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-primary flex items-center gap-2">
-                    <Box className="w-5 h-5" />
-                    3D Model
-                  </h3>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setShow3DModel(!show3DModel)}
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    {show3DModel ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    {show3DModel ? 'Hide' : 'Show'}
-                  </Button>
-                </div>
-                {show3DModel && (
-                  <div className="p-6 bg-muted/70 rounded-lg border-2 border-primary/50">
-                    <div className="flex flex-col items-center gap-4">
-                      <Box className="w-16 h-16 text-primary animate-pulse" />
-                      <p className="text-foreground font-medium">
-                        {hybrid.name} 3D Model ({modelFormat.toUpperCase()})
-                      </p>
-                      <Button onClick={download3DModel} className="font-bold">
-                        <Download className="mr-2 h-4 w-4" />
-                        Download {modelFormat.toUpperCase()}
-                      </Button>
-                    </div>
+                <img 
+                  src={generatedImage}
+                  alt={`${hybrid.name} - AI Generated Hybrid Character`}
+                  className="w-full h-auto rounded-lg border-4 border-primary shadow-glow"
+                />
+                {hybrid.componentBreakdown && hybrid.componentBreakdown.length >= 3 && (
+                  <div className="mt-3 p-3 bg-muted/70 rounded-lg text-sm">
+                    <p className="font-semibold text-primary mb-1">Fusion of:</p>
+                    <p className="text-foreground">
+                      {CHARACTERS[hybrid.componentBreakdown[0].key].name} ({hybrid.componentBreakdown[0].percentage}%) + {CHARACTERS[hybrid.componentBreakdown[1].key].name} ({hybrid.componentBreakdown[1].percentage}%) + {CHARACTERS[hybrid.componentBreakdown[2].key].name} ({hybrid.componentBreakdown[2].percentage}%)
+                    </p>
                   </div>
                 )}
               </div>
-            )}
-
-            {/* Default Character Visualization - only show if no generated image */}
-            {!generatedImage && (
+            ) : (
               <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto">
                 {hybrid.components.slice(0, 3).map((charKey, idx) => (
                   <div key={charKey} className="absolute inset-0">
@@ -278,130 +233,80 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
                         filter: idx > 0 ? `hue-rotate(${idx * 30}deg)` : 'none',
                       }}
                     />
-                    {charKey === 'patrick' && idx === 0 && (
-                      <img
-                        src={CHARACTERS['gary']?.image}
-                        alt="Gary"
-                        className="absolute w-8 h-8 md:w-12 md:h-12 object-contain animate-bounce"
-                        style={{
-                          bottom: '25%',
-                          left: '50%',
-                          transform: 'translateX(-50%)',
-                        }}
-                      />
-                    )}
                   </div>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Actions */}
-          <div className="flex flex-col gap-4 mb-6">
-            {/* Image Generation Mode Selection */}
-            {!generatedImage && (
-              <div className="flex justify-center gap-4 items-center mb-2">
-                <label className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
-                  <input
-                    type="radio"
-                    name="printMode"
-                    value="regular"
-                    checked={printMode === 'regular'}
-                    onChange={(e) => setPrintMode(e.target.value as 'regular' | '3d')}
-                    className="w-4 h-4 cursor-pointer"
-                  />
-                  🎨 Regular Style
-                </label>
-                <label className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
-                  <input
-                    type="radio"
-                    name="printMode"
-                    value="3d"
-                    checked={printMode === '3d'}
-                    onChange={(e) => setPrintMode(e.target.value as 'regular' | '3d')}
-                    className="w-4 h-4 cursor-pointer"
-                  />
-                  🖨️ 3D Print Mode
-                </label>
-              </div>
-            )}
-
-            {/* 3D Model Format Selection */}
-            {generatedImage && !generated3DModel && (
-              <div className="flex justify-center gap-4 items-center mb-2">
-                <span className="text-sm font-medium text-foreground">3D Format:</span>
-                <label className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
-                  <input
-                    type="radio"
-                    name="modelFormat"
-                    value="stl"
-                    checked={modelFormat === 'stl'}
-                    onChange={(e) => setModelFormat(e.target.value as 'stl' | 'obj')}
-                    className="w-4 h-4 cursor-pointer"
-                  />
-                  STL (Default)
-                </label>
-                <label className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
-                  <input
-                    type="radio"
-                    name="modelFormat"
-                    value="obj"
-                    checked={modelFormat === 'obj'}
-                    onChange={(e) => setModelFormat(e.target.value as 'stl' | 'obj')}
-                    className="w-4 h-4 cursor-pointer"
-                  />
-                  OBJ
-                </label>
-              </div>
-            )}
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
-              {/* Generate AI Image Button */}
-              {!generatedImage && (
+          {/* Download Actions - Only show when image is ready */}
+          {generatedImage && (
+            <div className="flex flex-col gap-4 mb-6">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
+                {/* Download Image Button */}
                 <Button
-                  onClick={generateHybridImage}
+                  onClick={downloadImage}
                   size="lg"
-                  disabled={isGenerating}
                   className="font-bold shadow-glow"
                 >
-                  <Wand2 className="mr-2 h-5 w-5" />
-                  {isGenerating ? 'Generating...' : `Generate ${printMode === '3d' ? '3D Print ' : ''}AI Image`}
+                  <Image className="mr-2 h-5 w-5" />
+                  Download Image
                 </Button>
-              )}
 
-              {/* Generate 3D Model Button */}
-              {generatedImage && !generated3DModel && (
-                <Button
-                  onClick={generate3DModel}
-                  size="lg"
-                  disabled={isGenerating3D}
-                  className="font-bold shadow-glow bg-gradient-to-r from-primary to-accent"
-                >
-                  <Box className="mr-2 h-5 w-5" />
-                  {isGenerating3D ? 'Generating 3D...' : `Generate 3D Model (${modelFormat.toUpperCase()})`}
-                </Button>
-              )}
-
-              <Button
-                onClick={onRestart}
-                size="lg"
-                variant={generatedImage ? "secondary" : "secondary"}
-                className="font-bold shadow-glow"
-              >
-                Retake Quiz
-              </Button>
-              <Button
-                onClick={handleShare}
-                variant="secondary"
-                size="lg"
-                className="font-bold"
-              >
-                <Share2 className="mr-2 h-5 w-5" />
-                Share
-              </Button>
+                {/* 3D Model Section */}
+                {!generated3DModel ? (
+                  <div className="flex items-center gap-2">
+                    <select
+                      value={modelFormat}
+                      onChange={(e) => setModelFormat(e.target.value as 'stl' | 'obj')}
+                      className="h-10 px-3 rounded-md border border-input bg-background text-sm"
+                    >
+                      <option value="stl">STL</option>
+                      <option value="obj">OBJ</option>
+                    </select>
+                    <Button
+                      onClick={generate3DModel}
+                      size="lg"
+                      disabled={isGenerating3D}
+                      variant="secondary"
+                      className="font-bold"
+                    >
+                      <Box className="mr-2 h-5 w-5" />
+                      {isGenerating3D ? 'Generating...' : 'Generate 3D Model'}
+                    </Button>
+                  </div>
+                ) : (
+                  <Button onClick={download3DModel} size="lg" className="font-bold">
+                    <Download className="mr-2 h-5 w-5" />
+                    Download 3D ({modelFormat.toUpperCase()})
+                  </Button>
+                )}
+              </div>
             </div>
+          )}
+
+          {/* Other Actions */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+            <Button
+              onClick={onRestart}
+              size="lg"
+              variant="secondary"
+              className="font-bold shadow-glow"
+            >
+              Retake Quiz
+            </Button>
+            <Button
+              onClick={handleShare}
+              variant="outline"
+              size="lg"
+              className="font-bold"
+            >
+              <Share2 className="mr-2 h-5 w-5" />
+              Share
+            </Button>
           </div>
           
+          {/* Personality Description */}
           <div className="bg-muted/50 rounded-lg p-6 mb-6">
             <h3 className="text-xl font-bold text-primary mb-3">Your Hybrid Personality</h3>
             <p className="text-foreground leading-relaxed mb-4">{hybrid.description}</p>
@@ -409,7 +314,7 @@ const QuizResult = ({ hybrid, onRestart }: QuizResultProps) => {
             {/* Detailed component breakdown */}
             {hybrid.componentBreakdown && hybrid.componentBreakdown.length > 0 && (
               <div className="mt-4 space-y-3">
-                <h4 className="text-lg font-semibold text-primary">Character Composition Breakdown:</h4>
+                <h4 className="text-lg font-semibold text-primary">Character Composition:</h4>
                 {hybrid.componentBreakdown.map(component => {
                   const character = CHARACTERS[component.key];
                   const topTraits = Object.entries(character.weights)

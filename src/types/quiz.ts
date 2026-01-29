@@ -49,4 +49,5 @@ export interface HybridCharacter {
   createdAt: number;
   position?: { x: number; y: number };
   componentBreakdown?: ComponentBreakdown[]; // Detailed percentage breakdown
+  generatedImageUrl?: string; // AI-generated hybrid character image
 }

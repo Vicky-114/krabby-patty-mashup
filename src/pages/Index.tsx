@@ -150,13 +150,6 @@ const Index = () => {
       // Create hybrid character with user's name
       const hybrid = createHybridCharacter(newTraitScores, newAnswers, userName);
       setCurrentHybrid(hybrid);
-      
-      // Save to localStorage
-      saveHybrid(hybrid);
-      
-      // Add to floating hybrids
-      setFloatingHybrids(prev => [...prev, hybrid]);
-      
       setQuizComplete(true);
       
       toast({
@@ -168,6 +161,18 @@ const Index = () => {
       console.log(`→ Generating question ${questionNumber + 1}/${maxQuestions}`);
       setQuestionNumber(prev => prev + 1);
       generateQuestion('adaptive');
+    }
+  };
+
+  // Callback when hybrid image is generated
+  const handleImageGenerated = (imageUrl: string) => {
+    if (currentHybrid) {
+      const updatedHybrid = { ...currentHybrid, generatedImageUrl: imageUrl };
+      setCurrentHybrid(updatedHybrid);
+      
+      // Save to localStorage and add to floating hybrids
+      saveHybrid(updatedHybrid);
+      setFloatingHybrids(prev => [...prev, updatedHybrid]);
     }
   };
 
@@ -213,6 +218,7 @@ const Index = () => {
         <QuizResult
           hybrid={currentHybrid}
           onRestart={handleRestart}
+          onImageGenerated={handleImageGenerated}
         />
       )}
     </div>
