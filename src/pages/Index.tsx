@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { QuizQuestion as QuizQuestionType, Answer, TraitScores, HybridCharacter } from '@/types/quiz';
-import { computeMatch, createHybridCharacter, saveHybrid, loadHybrids } from '@/utils/quizLogic';
+import { computeMatch, createHybridCharacter, saveHybrid } from '@/utils/quizLogic';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import QuizQuestion from '@/components/QuizQuestion';
 import QuizResult from '@/components/QuizResult';
-import FloatingHybrid from '@/components/FloatingHybrid';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Globe } from 'lucide-react';
@@ -21,15 +20,8 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [quizComplete, setQuizComplete] = useState(false);
   const [currentHybrid, setCurrentHybrid] = useState<HybridCharacter | null>(null);
-  const [floatingHybrids, setFloatingHybrids] = useState<HybridCharacter[]>([]);
   const { toast } = useToast();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Load saved hybrids on mount
-    const saved = loadHybrids();
-    setFloatingHybrids(saved);
-  }, []);
 
   const handleStart = (name: string) => {
     setUserName(name);
@@ -173,9 +165,8 @@ const Index = () => {
       const updatedHybrid = { ...currentHybrid, generatedImageUrl: imageUrl };
       setCurrentHybrid(updatedHybrid);
       
-      // Save to localStorage and add to floating hybrids
+      // Save to localStorage
       saveHybrid(updatedHybrid);
-      setFloatingHybrids(prev => [...prev, updatedHybrid]);
     }
   };
 
@@ -204,11 +195,6 @@ const Index = () => {
           World
         </Button>
       </div>
-
-      {/* Floating hybrids in background */}
-      {floatingHybrids.map((hybrid, index) => (
-        <FloatingHybrid key={hybrid.id} hybrid={hybrid} index={index} />
-      ))}
 
       {/* Quiz content */}
       {!quizStarted && (
