@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Volume2, VolumeX } from 'lucide-react';
 
-// SpongeBob-style ukulele background music (royalty-free tropical/underwater vibe)
-const MUSIC_URL = 'https://assets.mixkit.co/music/preview/mixkit-happy-ukulele-summer-414.mp3';
+// SpongeBob-style Hawaiian steel guitar / ukulele background music
+const MUSIC_URL = 'https://cdn.pixabay.com/audio/2022/01/18/audio_d0a13f69d2.mp3';
 
 const BackgroundMusic = () => {
   const [isPlaying, setIsPlaying] = useState(false);
