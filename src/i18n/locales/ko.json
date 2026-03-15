@@ -1,0 +1,52 @@
+{
+  "welcome": {
+    "title": "비키니 시티 성격 테스트",
+    "subtitle": "당신의 스폰지밥 하이브리드 캐릭터를 찾아보세요!",
+    "description": "AI 기반 맞춤형 질문을 통해 귀하의 답변을 바탕으로 독특한 하이브리드 캐릭터를 만듭니다. 완벽한 캐릭터 매칭을 찾을 때까지 질문 수는 사람마다 다릅니다!",
+    "inputLabel": "이름을 입력하세요:",
+    "inputPlaceholder": "여기에 이름을 입력하세요...",
+    "inputError": "이름을 입력해 주세요",
+    "startButton": "테스트 시작",
+    "feature1": "✨ AI 맞춤형 질문",
+    "feature2": "🎨 독특한 하이브리드 캐릭터",
+    "feature3": "💾 작품 자동 저장"
+  },
+  "common": {
+    "world": "월드",
+    "generating": "질문을 생성 중입니다...",
+    "fallbackTitle": "대체 질문 사용",
+    "fallbackDescription": "AI 생성에 실패하여 미리 설정된 질문을 사용하여 계속합니다",
+    "loading": "로딩 중...",
+    "language": "언어",
+    "back": "테스트로 돌아가기",
+    "copied": "클립보드에 복사되었습니다!",
+    "shareDescription": "하이브리드 캐릭터를 친구들과 공유하세요 !",
+    "play": "재생",
+    "pause": "일시 중지"
+  },
+  "quiz": {
+    "questionNumber": "질문 {{number}}",
+    "completeTitle": "테스트 완료!",
+    "completeDescription": "{{number}}개의 질문 후, 당신의 완벽한 캐릭터 매칭을 찾았습니다!",
+    "restart": "다시 시작"
+  },
+  "result": {
+    "match": "완벽한 매치: {{name}}",
+    "confidence": "일치도: {{confidence}}%",
+    "share": "작품 내보내기",
+    "download": "이미지 다운로드",
+    "ready": "하이브리드 캐릭터가 준비되었습니다!",
+    "fusionDescription": "{{char1}}, {{char2}}, {{char3}}의 독특한 융합"
+  },
+  "world": {
+    "title": "비키니 시티 월드",
+    "count": "{{count}}개의 하이브리드 캐릭터가 헤엄치고 있습니다",
+    "emptyTitle": "아직 하이브리드가 없습니다!",
+    "emptyDescription": "퀴즈를 완료하여 첫 번째 하이브리드 캐릭터를 만들고 여기서 헤엄치는 모습을 지켜보세요!",
+    "takeQuiz": "퀴즈 풀기"
+  },
+  "music": {
+    "toggle": "음악 켜기/끄기",
+    "volume": "볼륨"
+  }
+}

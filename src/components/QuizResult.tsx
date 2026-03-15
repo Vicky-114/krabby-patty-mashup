@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useState, useEffect } from 'react';
 import bgImage from '@/assets/bg_bikini_bottom.jpg';
+import { useTranslation } from 'react-i18next';
 
 interface QuizResultProps {
   hybrid: HybridCharacter;
@@ -21,6 +22,7 @@ const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) =>
   const [modelFormat, setModelFormat] = useState<'stl' | 'obj'>('stl');
   const [isGenerating3D, setIsGenerating3D] = useState(false);
   const [generated3DModel, setGenerated3DModel] = useState<string | null>(null);
+  const { t } = useTranslation();
   
   // Auto-generate image on mount if not already generated
   useEffect(() => {
@@ -51,8 +53,8 @@ const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) =>
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     toast({
-      title: "Copied to clipboard!",
-      description: "Share your hybrid character with friends!",
+      title: t('common.copied'),
+      description: t('common.shareDescription'),
     });
   };
   
@@ -90,8 +92,12 @@ const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) =>
         setGeneratedImage(data.imageUrl);
         onImageGenerated?.(data.imageUrl);
         toast({
-          title: "Your hybrid character is ready!",
-          description: `A unique fusion of ${shapeCharacter.name}, ${colorCharacter.name}, and ${patternCharacter.name}`,
+          title: t('result.ready'),
+          description: t('result.fusionDescription', { 
+            char1: shapeCharacter.name, 
+            char2: colorCharacter.name, 
+            char3: patternCharacter.name 
+          }),
         });
       }
     } catch (error) {
@@ -188,7 +194,7 @@ const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) =>
       <Card className="relative w-full max-w-3xl p-8 md:p-12 bg-card/95 backdrop-blur-md border-primary border-4 shadow-deep overflow-y-auto max-h-[90vh]">
         <div className="text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-primary mb-4 pulse-glow">
-            You're a Hybrid Character!
+            {t('result.title')}
           </h1>
           
           <h2 className="text-4xl md:text-6xl font-black text-foreground mb-6">
@@ -200,8 +206,8 @@ const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) =>
             {isGenerating ? (
               <div className="w-full max-w-md mx-auto p-12 bg-muted/50 rounded-lg border-4 border-primary/50">
                 <Loader2 className="w-16 h-16 animate-spin text-primary mx-auto mb-4" />
-                <p className="text-lg font-medium text-foreground">Creating your unique hybrid character...</p>
-                <p className="text-sm text-muted-foreground mt-2">This may take a moment</p>
+                <p className="text-lg font-medium text-foreground">{t('result.generating')}</p>
+                <p className="text-sm text-muted-foreground mt-2">{t('result.moment')}</p>
               </div>
             ) : generatedImage ? (
               <div className="w-full max-w-md mx-auto">
@@ -212,7 +218,7 @@ const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) =>
                 />
                 {hybrid.componentBreakdown && hybrid.componentBreakdown.length >= 3 && (
                   <div className="mt-3 p-3 bg-muted/70 rounded-lg text-sm">
-                    <p className="font-semibold text-primary mb-1">Fusion of:</p>
+                    <p className="font-semibold text-primary mb-1">{t('result.fusion')}</p>
                     <p className="text-foreground">
                       {CHARACTERS[hybrid.componentBreakdown[0].key].name} ({hybrid.componentBreakdown[0].percentage}%) + {CHARACTERS[hybrid.componentBreakdown[1].key].name} ({hybrid.componentBreakdown[1].percentage}%) + {CHARACTERS[hybrid.componentBreakdown[2].key].name} ({hybrid.componentBreakdown[2].percentage}%)
                     </p>
@@ -250,7 +256,7 @@ const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) =>
                   className="font-bold shadow-glow"
                 >
                   <Image className="mr-2 h-5 w-5" />
-                  Download Image
+                  {t('result.downloadImage')}
                 </Button>
 
                 {/* 3D Model Section */}
@@ -272,13 +278,13 @@ const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) =>
                       className="font-bold"
                     >
                       <Box className="mr-2 h-5 w-5" />
-                      {isGenerating3D ? 'Generating...' : 'Generate 3D Model'}
+                      {isGenerating3D ? t('result.generating3D') : t('result.generate3D')}
                     </Button>
                   </div>
                 ) : (
                   <Button onClick={download3DModel} size="lg" className="font-bold">
                     <Download className="mr-2 h-5 w-5" />
-                    Download 3D ({modelFormat.toUpperCase()})
+                    {t('result.download3D', { format: modelFormat.toUpperCase() })}
                   </Button>
                 )}
               </div>
@@ -293,28 +299,28 @@ const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) =>
               variant="secondary"
               className="font-bold shadow-glow"
             >
-              Retake Quiz
+              {t('result.retake')}
             </Button>
-            <Button
+<Button
               onClick={handleShare}
               variant="outline"
               size="lg"
               className="font-bold"
             >
               <Share2 className="mr-2 h-5 w-5" />
-              Share
+              {t('result.share')}
             </Button>
           </div>
           
           {/* Personality Description */}
           <div className="bg-muted/50 rounded-lg p-6 mb-6">
-            <h3 className="text-xl font-bold text-primary mb-3">Your Hybrid Personality</h3>
+            <h3 className="text-xl font-bold text-primary mb-3">{t('result.personality')}</h3>
             <p className="text-foreground leading-relaxed mb-4">{hybrid.description}</p>
             
             {/* Detailed component breakdown */}
             {hybrid.componentBreakdown && hybrid.componentBreakdown.length > 0 && (
               <div className="mt-4 space-y-3">
-                <h4 className="text-lg font-semibold text-primary">Character Composition:</h4>
+                <h4 className="text-lg font-semibold text-primary">{t('result.composition')}</h4>
                 {hybrid.componentBreakdown.map(component => {
                   const character = CHARACTERS[component.key];
                   const topTraits = Object.entries(character.weights)
@@ -349,7 +355,7 @@ const QuizResult = ({ hybrid, onRestart, onImageGenerated }: QuizResultProps) =>
                           />
                         </div>
                         <p className="text-xs text-muted-foreground mt-1">
-                          Key traits: {topTraits.join(', ')}
+                          {t('result.traits')} {topTraits.join(', ')}
                         </p>
                       </div>
                     </div>

@@ -1,0 +1,52 @@
+{
+  "welcome": {
+    "title": "比奇堡性格測試",
+    "subtitle": "發現你的海綿寶寶混合角色！",
+    "description": "通過AI驅動的自適應問題，我們將根據你的回答創建一個獨特的混合角色。每個人的問題數量各不相同，直到我們找到你的完美角色匹配！",
+    "inputLabel": "輸入你的名字：",
+    "inputPlaceholder": "在這裡輸入你的名字...",
+    "inputError": "請輸入你的名字",
+    "startButton": "開始測試",
+    "feature1": "✨ AI自適應問題",
+    "feature2": "🎨 獨特的混合角色",
+    "feature3": "💾 自動保存你的作品"
+  },
+  "common": {
+    "world": "世界",
+    "generating": "正在生成你的問題...",
+    "fallbackTitle": "使用備用問題",
+    "fallbackDescription": "AI生成失敗，使用預設問題繼續",
+    "loading": "加載中...",
+    "language": "語言",
+    "back": "返回測試",
+    "copied": "已複製到剪貼簿！",
+    "shareDescription": "與朋友分享你的混合角色！",
+    "play": "播放",
+    "pause": "暫停"
+  },
+  "quiz": {
+    "questionNumber": "問題 {{number}}",
+    "completeTitle": "測試完成！",
+    "completeDescription": "經過 {{number}} 個問題，我們找到了你的完美角色匹配！",
+    "restart": "重新開始"
+  },
+  "result": {
+    "match": "完美匹配：{{name}}",
+    "confidence": "匹配度：{{confidence}}%",
+    "share": "導出作品",
+    "download": "下載圖片",
+    "ready": "你的混合角色已準備就緒！",
+    "fusionDescription": "由 {{char1}}、{{char2}} 和 {{char3}} 獨特融合而成"
+  },
+  "world": {
+    "title": "比奇堡世界",
+    "count": "{{count}} 個混合角色正在遊動",
+    "emptyTitle": "還沒有記錄！",
+    "emptyDescription": "完成測試以創建你的第一個混合角色，並看他們在周圍遊動！",
+    "takeQuiz": "開始測試"
+  },
+  "music": {
+    "toggle": "播放/暫停音樂",
+    "volume": "音量"
+  }
+}

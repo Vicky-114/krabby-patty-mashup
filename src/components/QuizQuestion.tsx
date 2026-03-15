@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import UnderwaterLayer from './UnderwaterLayer';
 import { useRipple } from '@/hooks/useRipple';
+import { useTranslation } from 'react-i18next';
 
 interface QuizQuestionProps {
   question: QuizQuestionType;
@@ -12,13 +13,16 @@ interface QuizQuestionProps {
 
 const QuizQuestion = ({ question, onAnswer, questionNumber }: QuizQuestionProps) => {
   const { createRipple } = useRipple();
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-8 relative">
       <UnderwaterLayer />
       <Card className="relative w-full max-w-4xl p-6 md:p-8 bg-card/90 backdrop-blur-sm border-interactive shadow-deep underwater-sway" style={{ zIndex: 10 }}>
         <div className="mb-6">
-          <span className="text-sm text-primary font-semibold">Question {questionNumber}</span>
+          <span className="text-sm text-primary font-semibold">
+            {t('quiz.questionNumber', { number: questionNumber })}
+          </span>
         </div>
         
         <h2 className="text-2xl md:text-4xl font-bold text-center mb-8 text-foreground">

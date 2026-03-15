@@ -1,0 +1,63 @@
+{
+  "welcome": {
+    "title": "Bikini Bottom residence test",
+    "subtitle": "发现你的海绵宝宝混合角色！",
+    "description": "通过AI驱动的自适应问题，我们将根据你的回答创建一个独特的混合角色。每个人的问题数量各不相同，直到我们找到你的完美角色匹配！",
+    "inputLabel": "输入你的名字：",
+    "inputPlaceholder": "在这里输入你的名字...",
+    "inputError": "请输入你的名字",
+    "startButton": "开始测试",
+    "feature1": "✨ AI自适应问题",
+    "feature2": "🎨 独特的混合角色",
+    "feature3": "💾 自动保存你的作品"
+  },
+  "common": {
+    "world": "世界",
+    "generating": "正在生成你的问题...",
+    "fallbackTitle": "使用备用问题",
+    "fallbackDescription": "AI生成失败，使用预设问题继续",
+    "loading": "加载中...",
+    "language": "语言",
+    "back": "返回测试",
+    "copied": "已复制到剪贴板！",
+    "shareDescription": "与朋友分享你的混合角色！",
+    "play": "播放",
+    "pause": "暂停"
+  },
+  "quiz": {
+    "questionNumber": "问题 {{number}}",
+    "completeTitle": "测试完成！",
+    "completeDescription": "经过 {{number}} 个问题，我们找到了你的完美角色匹配！",
+    "restart": "重新开始",
+    "retake": "重新測試"
+  },
+  "result": {
+    "title": "你是一個混合角色！",
+    "generating": "正在創建你獨特的混合角色...",
+    "moment": "這可能需要一些時間",
+    "fusion": "融合自：",
+    "match": "完美匹配：{{name}}",
+    "confidence": "匹配度：{{confidence}}%",
+    "share": "分享",
+    "downloadImage": "下載圖片",
+    "generate3D": "生成3D模型",
+    "generating3D": "正在生成...",
+    "download3D": "下載3D模型 ({{format}})",
+    "personality": "你的混合性格",
+    "composition": "角色成分：",
+    "traits": "關鍵特徵：",
+    "ready": "你的混合角色已准备就绪！",
+    "fusionDescription": "由 {{char1}}、{{char2}} 和 {{char3}} 独特融合而成"
+  },
+  "world": {
+    "title": "比奇堡世界",
+    "count": "{{count}} 个混合角色正在游动",
+    "emptyTitle": "还没有记录！",
+    "emptyDescription": "完成测试以创建你的第一个混合角色，并看他们在周围游动！",
+    "takeQuiz": "开始测试"
+  },
+  "music": {
+    "toggle": "播放/暂停音乐",
+    "volume": "音量"
+  }
+}

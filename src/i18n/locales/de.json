@@ -1,0 +1,52 @@
+{
+  "welcome": {
+    "title": "Bikini Bottom Persönlichkeitsquiz",
+    "subtitle": "Entdecke deinen SpongeBob-Hybrid-Charakter!",
+    "description": "Durch KI-gestützte adaptive Fragen erstellen wir basierend auf deinen Antworten einen einzigartigen Hybrid-Charakter. Die Anzahl der Fragen variiert für jede Person, bis wir deine perfekte Charakter-Übereinstimmung finden!",
+    "inputLabel": "Gib deinen Namen ein:",
+    "inputPlaceholder": "Gib hier deinen Namen ein...",
+    "inputError": "Bitte gib deinen Namen ein",
+    "startButton": "Quiz starten",
+    "feature1": "✨ KI-adaptive Fragen",
+    "feature2": "🎨 Einzigartige Hybrid-Charaktere",
+    "feature3": "💾 Speichere deine Kreationen"
+  },
+  "common": {
+    "world": "Welt",
+    "generating": "Erzeuge deine Frage...",
+    "fallbackTitle": "Verwende Ersatzfrage",
+    "fallbackDescription": "KI-Generierung fehlgeschlagen, verwende voreingestellte Frage",
+    "loading": "Laden...",
+    "language": "Sprache",
+    "back": "Zurück zum Quiz",
+    "copied": "In die Zwischenablage kopiert!",
+    "shareDescription": "Teile deinen Hybrid-Charakter mit Freunden!",
+    "play": "Abspielen",
+    "pause": "Pause"
+  },
+  "quiz": {
+    "questionNumber": "Frage {{number}}",
+    "completeTitle": "Quiz abgeschlossen!",
+    "completeDescription": "Nach {{number}} Fragen haben wir deine perfekte Charakter-Übereinstimmung gefunden!",
+    "restart": "Neustart"
+  },
+  "result": {
+    "match": "Perfekte Übereinstimmung: {{name}}",
+    "confidence": "Match: {{confidence}}%",
+    "share": "Kreation exportieren",
+    "download": "Bild herunterladen",
+    "ready": "Dein Hybrid-Charakter ist bereit!",
+    "fusionDescription": "Eine einzigartige Fusion aus {{char1}}, {{char2}} und {{char3}}"
+  },
+  "world": {
+    "title": "Bikini Bottom Welt",
+    "count": "{{count}} Hybrid-Charaktere schwimmen umher",
+    "emptyTitle": "Noch keine Hybriden!",
+    "emptyDescription": "Schließe das Quiz ab, um deinen ersten Hybrid-Charakter zu erstellen und ihm beim Schwimmen zuzusehen!",
+    "takeQuiz": "Quiz machen"
+  },
+  "music": {
+    "toggle": "Musik an/aus",
+    "volume": "Lautstärke"
+  }
+}

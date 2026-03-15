@@ -1,0 +1,63 @@
+{
+  "welcome": {
+    "title": "Bikini Bottom residence test",
+    "subtitle": "Discover Your SpongeBob Hybrid Character!",
+    "description": "Through AI-powered adaptive questions, we'll create a unique hybrid character based on your answers. The number of questions varies for each person until we find your perfect character match!",
+    "inputLabel": "Enter your name:",
+    "inputPlaceholder": "Type your name here...",
+    "inputError": "Please enter your name",
+    "startButton": "Start Quiz",
+    "feature1": "✨ AI Adaptive Questions",
+    "feature2": "🎨 Unique Hybrid Characters",
+    "feature3": "💾 Auto-save Your Creations"
+  },
+  "common": {
+    "world": "World",
+    "generating": "Generating your question...",
+    "fallbackTitle": "Using Fallback Question",
+    "fallbackDescription": "AI generation failed, using preset question to continue",
+    "loading": "Loading...",
+    "language": "Language",
+    "back": "Back to Quiz",
+    "copied": "Copied to clipboard!",
+    "shareDescription": "Share your hybrid character with friends!",
+    "play": "Play",
+    "pause": "Pause"
+  },
+  "quiz": {
+    "questionNumber": "Question {{number}}",
+    "completeTitle": "Quiz Complete!",
+    "completeDescription": "After {{number}} questions, we found your perfect character match!",
+    "restart": "Restart",
+    "retake": "Retake Quiz"
+  },
+  "result": {
+    "title": "You're a Hybrid Character!",
+    "generating": "Creating your unique hybrid character...",
+    "moment": "This may take a moment",
+    "fusion": "Fusion of:",
+    "match": "Perfect Match: {{name}}",
+    "confidence": "Match: {{confidence}}%",
+    "share": "Share",
+    "downloadImage": "Download Image",
+    "generate3D": "Generate 3D Model",
+    "generating3D": "Generating...",
+    "download3D": "Download 3D ({{format}})",
+    "personality": "Your Hybrid Personality",
+    "composition": "Character Composition:",
+    "traits": "Key traits:",
+    "ready": "Your hybrid character is ready!",
+    "fusionDescription": "A unique fusion of {{char1}}, {{char2}}, and {{char3}}"
+  },
+  "world": {
+    "title": "Bikini Bottom World",
+    "count": "{{count}} hybrid characters swimming around",
+    "emptyTitle": "No Hybrids Yet!",
+    "emptyDescription": "Complete the quiz to create your first hybrid character and watch them swim around here!",
+    "takeQuiz": "Take the Quiz"
+  },
+  "music": {
+    "toggle": "Toggle Music",
+    "volume": "Volume"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "welcome": {
+    "title": "Quiz de Personalidade da Fenda do Biquíni",
+    "subtitle": "Descubra seu Personagem Híbrido do Bob Esponja!",
+    "description": "Através de perguntas adaptativas alimentadas por IA, criaremos um personagem híbrido único com base em suas respostas. O número de perguntas varia para cada pessoa até encontrarmos a combinação perfeita para você!",
+    "inputLabel": "Digite seu nome:",
+    "inputPlaceholder": "Digite seu nome aqui...",
+    "inputError": "Por favor, digite seu nome",
+    "startButton": "Iniciar Quiz",
+    "feature1": "✨ Perguntas Adaptativas de IA",
+    "feature2": "🎨 Personagens Híbridos Únicos",
+    "feature3": "💾 Salvamento Automático"
+  },
+  "common": {
+    "world": "Mundo",
+    "generating": "Gerando sua pergunta...",
+    "fallbackTitle": "Usando pergunta de reserva",
+    "fallbackDescription": "A geração de IA falhou, usando pergunta predefinida",
+    "loading": "Carregando...",
+    "language": "Idioma",
+    "back": "Voltar para o Quiz",
+    "copied": "Copiado para a área de transferência!",
+    "shareDescription": "Compartilhe seu personagem híbrido com os amigos !",
+    "play": "Tocar",
+    "pause": "Pausar"
+  },
+  "quiz": {
+    "questionNumber": "Pergunta {{number}}",
+    "completeTitle": "Quiz Concluído!",
+    "completeDescription": "Após {{number}} perguntas, encontramos sua combinação ideal de personagem!",
+    "restart": "Reiniciar"
+  },
+  "result": {
+    "match": "Combinação Perfeita: {{name}}",
+    "confidence": "Match: {{confidence}}%",
+    "share": "Exportar Criação",
+    "download": "Baixar Imagem",
+    "ready": "Seu personagem híbrido está pronto!",
+    "fusionDescription": "Uma fusão única de {{char1}}, {{char2}}, and {{char3}}"
+  },
+  "world": {
+    "title": "Mundo da Fenda do Biquíni",
+    "count": "{{count}} personagens híbridos nadando por aqui",
+    "emptyTitle": "Nenhum híbrido ainda!",
+    "emptyDescription": "Complete o quiz para criar seu primeiro personagem híbrido e veja-o nadar por aqui!",
+    "takeQuiz": "Fazer o Quiz"
+  },
+  "music": {
+    "toggle": "Ativar/Desativar Música",
+    "volume": "Volume"
+  }
+}

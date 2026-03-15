@@ -1,0 +1,52 @@
+{
+  "welcome": {
+    "title": "Quiz de Personnalité de Bikini Bottom",
+    "subtitle": "Découvrez votre personnage hybride SpongeBob !",
+    "description": "Grâce à des questions adaptatives propulsées par l'IA, nous créerons un personnage hybride unique basé sur vos réponses. Le nombre de questions varie pour chaque personne jusqu'à ce que nous trouvions votre correspondance parfaite !",
+    "inputLabel": "Entrez votre nom :",
+    "inputPlaceholder": "Tapez votre nom ici...",
+    "inputError": "Veuillez entrer votre nom",
+    "startButton": "Commencer le Quiz",
+    "feature1": "✨ Questions Adaptatives IA",
+    "feature2": "🎨 Personnages Hybrides Uniques",
+    "feature3": "💾 Sauvegarde Automatique"
+  },
+  "common": {
+    "world": "Monde",
+    "generating": "Génération de votre question...",
+    "fallbackTitle": "Utilisation de la question de secours",
+    "fallbackDescription": "L'IA a échoué, utilisation d'une question prédéfinie",
+    "loading": "Chargement...",
+    "language": "Langue",
+    "back": "Retour au Quiz",
+    "copied": "Copié dans le presse-papiers !",
+    "shareDescription": "Partagez votre personnage hybride avec vos amis !",
+    "play": "Lire",
+    "pause": "Pause"
+  },
+  "quiz": {
+    "questionNumber": "Question {{number}}",
+    "completeTitle": "Quiz Terminé !",
+    "completeDescription": "Après {{number}} questions, nous avons trouvé votre personnage parfait !",
+    "restart": "Recommencer"
+  },
+  "result": {
+    "match": "Correspondance Parfaite : {{name}}",
+    "confidence": "Match : {{confidence}}%",
+    "share": "Exporter la Création",
+    "download": "Télécharger l'Image",
+    "ready": "Votre personnage hybride est prêt !",
+    "fusionDescription": "Une fusion unique de {{char1}}, {{char2}} et {{char3}}"
+  },
+  "world": {
+    "title": "Monde de Bikini Bottom",
+    "count": "{{count}} personnages hybrides nagent aux alentours",
+    "emptyTitle": "Pas encore d'hybrides !",
+    "emptyDescription": "Terminez le quiz pour créer votre premier personnage hybride et regardez-le nager ici !",
+    "takeQuiz": "Faire le Quiz"
+  },
+  "music": {
+    "toggle": "Musique on/off",
+    "volume": "Volume"
+  }
+}

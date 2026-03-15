@@ -1,0 +1,52 @@
+{
+  "welcome": {
+    "title": "ビキニタウン個性格診断",
+    "subtitle": "あなたのスポンジ・ボブ・ハイブリッド・キャラクターを見つけよう！",
+    "description": "AIを搭載した適応型質問を通じて、あなたの回答に基づいたユニークなハイブリッド・キャラクターを作成します。質問の数は、完璧なキャラクター・マッチが見つかるまで人によって異なります！",
+    "inputLabel": "名前を入力してください：",
+    "inputPlaceholder": "ここに名前を入力...",
+    "inputError": "名前を入力してください",
+    "startButton": "クイズを開始",
+    "feature1": "✨ AI適応型質問",
+    "feature2": "🎨 ユニークなハイブリッド・キャラクター",
+    "feature3": "💾 作品の自動保存"
+  },
+  "common": {
+    "world": "ワールド",
+    "generating": "質問を生成中...",
+    "fallbackTitle": "代替質問を使用",
+    "fallbackDescription": "AI生成に失敗したため、プリセットの質問を使用して続行します",
+    "loading": "読み込み中...",
+    "language": "言語",
+    "back": "クイズに戻る",
+    "copied": "クリップボードにコピーしました！",
+    "shareDescription": "ハイブリッドキャラクターを友達と共有しましょう！",
+    "play": "再生",
+    "pause": "一時停止"
+  },
+  "quiz": {
+    "questionNumber": "質問 {{number}}",
+    "completeTitle": "クイズ完了！",
+    "completeDescription": "{{number}}問の質問の後、あなたの完璧なキャラクター・マッチが見つかりました！",
+    "restart": "最初からやり直す"
+  },
+  "result": {
+    "match": "完璧なマッチ: {{name}}",
+    "confidence": "一致度: {{confidence}}%",
+    "share": "作品を書き出す",
+    "download": "画像をダウンロード",
+    "ready": "ハイブリッドキャラクターが完成しました！",
+    "fusionDescription": "{{char1}}、{{char2}}、{{char3}}のユニークな融合"
+  },
+  "world": {
+    "title": "ビキニタウンワールド",
+    "count": "{{count}}体のハイブリッドキャラクターが泳いでいます",
+    "emptyTitle": "ハイブリッドはまだいません！",
+    "emptyDescription": "クイズを完了して最初のハイブリッドキャラクターを作成し、ここで泳ぐ様子を観察しましょう！",
+    "takeQuiz": "クイズに挑戦"
+  },
+  "music": {
+    "toggle": "音楽のON/OFF",
+    "volume": "音量"
+  }
+}

@@ -6,10 +6,11 @@ import { computeMatch, createHybridCharacter, saveHybrid } from '@/utils/quizLog
 import WelcomeScreen from '@/components/WelcomeScreen';
 import QuizQuestion from '@/components/QuizQuestion';
 import QuizResult from '@/components/QuizResult';
-import BackgroundMusic from '@/components/BackgroundMusic';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Globe } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const Index = () => {
   const [userName, setUserName] = useState<string>('');
@@ -23,6 +24,7 @@ const Index = () => {
   const [currentHybrid, setCurrentHybrid] = useState<HybridCharacter | null>(null);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleStart = (name: string) => {
     setUserName(name);
@@ -98,8 +100,8 @@ const Index = () => {
       });
       
       toast({
-        title: "Using Fallback Question",
-        description: "AI generation failed, using preset question to continue",
+        title: t('common.fallbackTitle'),
+        description: t('common.fallbackDescription'),
       });
     } finally {
       setIsLoading(false);
@@ -149,8 +151,8 @@ const Index = () => {
       setQuizComplete(true);
       
       toast({
-        title: "Quiz Complete!",
-        description: `After ${questionNumber} questions, we found your perfect character match!`,
+        title: t('quiz.completeTitle'),
+        description: t('quiz.completeDescription', { number: questionNumber }),
       });
     } else {
       // Generate next question (adaptive)
@@ -185,20 +187,9 @@ const Index = () => {
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* World button - top right */}
-      <div className="fixed top-4 right-4 z-50">
-        <Button
-          onClick={() => navigate('/world')}
-          variant="secondary"
-          size="lg"
-          className="font-bold shadow-glow backdrop-blur-sm bg-card/80"
-        >
-          <Globe className="mr-2 h-5 w-5" />
-          World
-        </Button>
+      <div className="fixed top-4 right-4 z-50 flex gap-2">
+        <LanguageSwitcher />
       </div>
-
-      {/* Background Music */}
-      <BackgroundMusic />
 
       {/* Quiz content */}
       {!quizStarted && (
@@ -208,7 +199,7 @@ const Index = () => {
       {quizStarted && isLoading && (
         <div className="flex flex-col items-center justify-center min-h-screen">
           <Loader2 className="w-16 h-16 animate-spin text-primary mb-4" />
-          <p className="text-xl text-foreground">Generating your question...</p>
+          <p className="text-xl text-foreground">{t('common.generating')}</p>
         </div>
       )}
 
